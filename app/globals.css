@@ -1,26 +1,80 @@
+/* ✨ Import Google Fonts — must be first */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Spectral:wght@300;400;500;600;700&display=swap');
+
+/* 🌀 Import Tailwind */
 @import "tailwindcss";
 
+/* 🎨 Base Color Variables (Light Mode) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FAF8F6;   /* Soft off-white body background */
+  --navbar-bg: #ffffff;    /* Pure white navbar background */
+  --foreground: #14263E;   /* Deep navy text color */
+  --accent: #E2C18C;       /* Muted luxury gold */
 }
 
+
+/* 🌿 Tailwind Theme Integration */
 @theme inline {
   --color-background: var(--background);
+  --color-navbar: var(--navbar-bg);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Spectral", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 🩶 Global Styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ✨ Navbar */
+nav {
+  background-color: var(--navbar-bg);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: background 0.3s ease;
+}
+
+/* ✨ Buttons */
+button {
+  background-color: var(--accent);
+  color: var(--foreground);
+  border: 1px solid var(--accent);
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: transparent;
+  color: var(--accent);
+}
+
+/* 🪞 Headings */
+h1, h2, h3, h4 {
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  letter-spacing: 0.5px;
+}
+
+/* 🧱 Links */
+a {
+  color: var(--foreground);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
