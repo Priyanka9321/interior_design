@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface Service {
   id: string;
@@ -60,14 +60,7 @@ export default function ServicesSection() {
     <div className="bg-[#FAF8F6] text-[#14263E] font-[Spectral] min-h-screen py-16 px-6 md:px-12 lg:px-20">
       {/* Header */}
       <div className="text-center mb-12">
-        <div className="flex justify-center items-center gap-2 mb-4">
-          <Sparkles size={18} className="text-[#E2C18C]" />
-          <span className="text-[#E2C18C] tracking-[2px] uppercase text-sm">
-            Curated Collections
-          </span>
-          <Sparkles size={18} className="text-[#E2C18C]" />
-        </div>
-
+      
         <h1 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3">
           Our Awesome Services
         </h1>

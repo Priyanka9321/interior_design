@@ -13,9 +13,8 @@ export default function TransformationShowcase({
   beforeImage = 'https://images.pexels.com/photos/6585599/pexels-photo-6585599.jpeg',
   afterImage = 'https://images.pexels.com/photos/8146330/pexels-photo-8146330.jpeg',
 }: Props) {
-  // Define image objects (correct type)
-  const firstImage: { imageUrl: string } = { imageUrl: beforeImage };
-  const secondImage: { imageUrl: string } = { imageUrl: afterImage };
+  const firstImage = { imageUrl: beforeImage };
+  const secondImage = { imageUrl: afterImage };
 
   return (
     <section className="bg-[var(--background)] py-20 px-6 md:px-12 border-b border-[var(--accent)] border-opacity-20">
@@ -25,11 +24,9 @@ export default function TransformationShowcase({
           <p className="text-[var(--accent)] font-body text-sm tracking-wider uppercase mb-2">
             Transformation
           </p>
-
           <h2 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3">
             A Seamless Experience
           </h2>
-
           <p className="text-[var(--foreground)]/80 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed font-[var(--font-body)]">
             With Essajees Atelier, transforming your space is as smooth an
             experience as sliding this bar.
@@ -48,18 +45,28 @@ export default function TransformationShowcase({
             </span>
 
             {/* Slider */}
-            <div className="relative h-[380px] md:h-[520px] overflow-hidden ">
+            <div className="relative h-[320px] sm:h-[380px] md:h-[520px] w-full overflow-hidden">
               <ReactBeforeSliderComponent
                 firstImage={firstImage}
                 secondImage={secondImage}
               />
 
-
-              {/* Custom styles for slider */}
               <style jsx global>{`
+                .before-after-slider {
+                  height: 100% !important;
+                }
                 .before-after-slider__first-image-container,
                 .before-after-slider__second-image-container {
-                  border-radius: 0.5rem;
+                  height: 100% !important;
+                  width: 100% !important;
+                }
+
+                .before-after-slider__first-image-container img,
+                .before-after-slider__second-image-container img {
+                  height: 100% !important;
+                  width: 100% !important;
+                  object-fit: cover !important;
+                  display: block;
                 }
 
                 .before-after-slider__separator {
