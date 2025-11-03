@@ -1,159 +1,140 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import Image from "next/image";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  quote: string;
-  image: string;
-  rating: number;
-}
-
-const testimonials: Testimonial[] = [
+const testimonials = [
   {
     id: 1,
-    name: "Sarah Mitchell",
-    role: "Luxury Home Owner, Manhattan",
-    quote:
-      "The attention to detail and understanding of our vision was exceptional. Our living space has transformed into a sanctuary of elegance and comfort.",
-    image:
-      "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=2",
-    rating: 5,
+    quote: "Working with Sarah has been no work at all. The best part of it all was that she is literally the easiest person to approach- strong and confident when needed, warm and empathetic when things sometimes did not go as per plan. What started with Sarah as a very professional engagement very quickly turned into a family dynamic. She is superbly connected to the best in the business- art, wallpapers, sculptures, chandeliers, fabrics, marble, furniture, rugs, decor, automation etc. She would make the call and the red carpet would be rolled out for us.",
+    author: "Bhagyashree Damera",
+    title: "CO-FOUNDER, DAMERA VENTURES"
   },
   {
     id: 2,
-    name: "Victoria Chen",
-    role: "Art Collector & Philanthropist",
-    quote:
-      "They understood the balance between modern aesthetics and timeless luxury. The space now reflects both our personality and refined taste.",
-    image:
-      "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=2",
-    rating: 5,
+    quote: "I remember the first call we had with Sarah—the energy and warmth she brought to the meeting made us confident that she was the one to design our dream home. The knowledge and expertise of Sarah and her team are truly commendable. Building a house can be extremely stressful, but working with the EA team made it feel like a breeze. They had such a clear vision of how the space would look that it was easy for us to trust them with all the decisions. If we ever had to go through this process again, it would only be with Essajees Atelier. We can't thank the team enough for giving us this beautiful home!",
+    author: "Manoj Jain",
+    title: "OWNER, KAY KAY INTERNATIONAL"
   },
   {
     id: 3,
-    name: "Alexander Laurent",
-    role: "Fashion Designer",
-    quote:
-      "A collaborative journey that resulted in an extraordinary interior. The craftsmanship and vision are unparalleled in the industry.",
-    image:
-      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=2",
-    rating: 5,
+    quote: "We are 3 generations living in the same house and that meant catering to all ages. We also went for a fusion aesthetic mixing traditional architecture with modern interiors. Sarah's team navigated this problem statement beautifully and patiently iterating through the process and today when I see my sons sleeping on the jhoola, I just think to myself: a job well done. The team has been super helpful post handover as well helping us patiently with connects and some basic hand holding. All in all a great experience and a big thank you.",
+    author: "Sunith Reddy",
+    title: "FOUNDER, BEFOREST"
   },
+  {
+    id: 4,
+    quote: "I am delighted to be able to share our appreciation for the office interior design work and our wonderful experience in working with Sarah and her team at Essajees Atelier. Their exceptional talent and unwavering dedication brought to life our vision in creating a warm and inviting space for our clients and employees alike. The harmonious blend of colors, textures, and thoughtful design elements has transformed our office into a place that feels like home, fostering a sense of community and collaboration among our team.",
+    author: "Soumya Rajan",
+    title: "FOUNDER, WATERFIELD"
+  },
+  {
+    id: 5,
+    quote: "Essajees was the ultimate pleasure to work with. The innovation, creativity and design was excellent and the attention to detail really put their work over the top. The team took the time to understand the requirement, laid out realistic budgets and made sure to follow up with contractors to ensure that delivery was timely. Thank you Sarah and team, you guys epitomised commitment, professionalism and most of all passion!",
+    author: "Yohan Daswani",
+    title: "PROMOTER, CHARAGH DIN SHIRTS"
+  },
+  {
+    id: 6,
+    quote: "I had the pleasure of working with Essajees, and I cannot express how impressed and grateful I am for the incredible work they did. From start to finish, Sarah and her team was attentive, knowledgeable, and creative, bringing my vision to life in ways I never could have imagined.",
+    author: "Sneha Singhi",
+    title: "CHEF"
+  },
+ 
 ];
 
-export default function TestimonialSection() {
+export default function Testimonials() {
   const [current, setCurrent] = useState(0);
 
   const next = () => setCurrent((prev) => (prev + 1) % testimonials.length);
-  const prev = () =>
-    setCurrent(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
-
+  const prev = () => setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   const testimonial = testimonials[current];
 
   return (
-    <section
-      className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20"
-      style={{ backgroundColor: "var(--background)" }}
-    >
-      <div className="max-w-6xl w-full">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-[var(--accent)] text-4xl font-[var(--font-heading)] font-semibold mb-4">
-            Stories of Transformation
-          </h2>
-        </div>
+    <section className="py-20 px-6 md:px-12 bg-[var(--background)]">
+      <div className="max-w-6xl mx-auto text-center">
+        {/* Section Label */}
+        <p className="text-[var(--accent)] font-body text-sm tracking-wider uppercase mb-2">
+          Our Clients Say
+        </p>
+
+        {/* Main Heading (matching AboutUs style) */}
+        <h2 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-12">
+          Testimonials
+        </h2>
 
         {/* Testimonial Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Left: Quote Content */}
-          <div className="space-y-8 text-center lg:text-left">
-            <div className="flex justify-center lg:justify-start gap-1">
-              {Array.from({ length: testimonial.rating }).map((_, i) => (
-                <Star
-                  key={i}
-                  size={20}
-                  className="fill-current"
-                  style={{ color: "var(--accent)" }}
-                />
-              ))}
-            </div>
+        <div className="relative flex items-center justify-center gap-6 md:gap-10">
+          {/* Left Arrow */}
+          <motion.button
+            onClick={prev}
+            whileHover={{ scale: 1.1, x: -4 }}
+            whileTap={{ scale: 0.95 }}
+            className="p-3 border transition-all"
+            style={{
+              borderColor: 'var(--accent)',
+              color: 'var(--foreground)',
+            }}
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft size={22} />
+          </motion.button>
 
-            <blockquote className="space-y-6">
+          {/* Testimonial Content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6 }}
+              className="flex-1  px-8 md:px-12 py-8"
+            >
+              {/* Quote */}
               <p
-                className="font-body text-lg sm:text-xl md:text-xl leading-relaxed italic"
-                style={{ color: "var(--foreground)" }}
+                className="text-[var(--foreground)]/80 font-body leading-relaxed text-base sm:text-lg mb-8"
               >
-                {testimonial.quote}
+                “{testimonial.quote}”
               </p>
 
-              <div className="pt-6 border-t border-gray-300 border-opacity-30">
-                <p
-                  className="font-heading text-lg"
-                  style={{ color: "var(--foreground)" }}
-                >
-                  {testimonial.name}
+              {/* Author */}
+              <div className="border-t pt-6 border-[var(--accent)]/70">
+                <p className="font-[Playfair_Display] text-xl text-[var(--foreground)] font-semibold">
+                  {testimonial.author}
                 </p>
-                <p
-                  className="font-body text-sm mt-1"
-                  style={{ color: "var(--foreground)", opacity: 0.7 }}
-                >
-                  {testimonial.role}
+                <p className="text-sm tracking-wide text-[var(--accent)] mt-1 uppercase font-body">
+                  {testimonial.title}
                 </p>
               </div>
-            </blockquote>
+            </motion.div>
+          </AnimatePresence>
 
-           
-          </div>
-
-          {/* Right: Image & Controls */}
-          <div className="flex flex-col items-center justify-center space-y-8">
-            {/* High-quality Image */}
-            <div className="w-44 h-44 sm:w-56 sm:h-56 rounded-full overflow-hidden shadow-xl">
-              <Image
-                src={testimonial.image}
-                alt={testimonial.name}
-                width={224}
-                height={224}
-                className="object-cover w-full h-full"
-                priority
-              />
-            </div>
-
-            {/* Navigation Buttons */}
-            <div className="flex gap-6">
-              <button
-                onClick={prev}
-                className="p-4 transition-all duration-300 hover:scale-110 shadow-md"
-                style={{
-                  backgroundColor: "var(--accent)",
-                  color: "var(--foreground)",
-                }}
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={next}
-                className="p-4 transition-all duration-300 hover:scale-110 shadow-md"
-                style={{
-                  backgroundColor: "var(--accent)",
-                  color: "var(--foreground)",
-                }}
-                aria-label="Next testimonial"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-
-          </div>
+          {/* Right Arrow */}
+          <motion.button
+            onClick={next}
+            whileHover={{ scale: 1.1, x: 4 }}
+            whileTap={{ scale: 0.95 }}
+            className="p-3 border transition-all"
+            style={{
+              borderColor: 'var(--accent)',
+              color: 'var(--foreground)',
+            }}
+            aria-label="Next testimonial"
+          >
+            <ChevronRight size={22} />
+          </motion.button>
         </div>
+
+       
+
+        {/* Counter */}
+        <p
+          className="text-sm tracking-widest mt-6 font-body"
+          style={{ color: 'var(--accent)' }}
+        >
+          {String(current + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
+        </p>
       </div>
     </section>
   );
