@@ -3,7 +3,7 @@ import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 
 export const metadata = {
-  title: "Priyanka Interiors",
+  title: "Naval Srijan",
   description: "Luxury Interior Design Studio | Transforming Spaces.",
 };
 

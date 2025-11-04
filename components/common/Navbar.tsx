@@ -16,6 +16,8 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const menuItems = ["Home", "About", "Projects", "Journal", "Contact"];
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 bg-[var(--navbar-bg)] transition-all duration-500 ${
@@ -46,10 +48,10 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-10">
-          {["Home", "About", "Projects", "Journal", "Contact"].map((item) => (
+          {menuItems.map((item) => (
             <Link
               key={item}
-              href={`/${item.toLowerCase()}`}
+              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
               className="relative font-body text-[17px] text-[var(--foreground)] hover:text-[var(--accent)] transition-all duration-300"
             >
               {item}
@@ -79,10 +81,10 @@ const Navbar = () => {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-[var(--navbar-bg)] shadow-lg absolute top-full left-0 w-full text-center py-6 space-y-4 transition-all duration-500">
-          {["Home", "About", "Projects", "Journal", "Contact"].map((item) => (
+          {menuItems.map((item) => (
             <Link
               key={item}
-              href={`/${item.toLowerCase()}`}
+              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
               onClick={() => setIsOpen(false)}
               className="block font-body text-lg text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
             >

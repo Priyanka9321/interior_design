@@ -1,7 +1,9 @@
 {
-  "name": "interior-design-website",
+  "name": "interior-designer",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://navalsrijan.com",
+  "author": "Navalsrijan Team",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

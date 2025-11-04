@@ -6,11 +6,18 @@ import TransformationShowcase from "@/components/home/TransformationShowcase";
 import Testimonials from "@/components/home/Testimonials";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
 
+
 export const metadata = {
-  title: "Priyanka Interiors | Elegant & Timeless Designs",
-  description:
-    "Transform your spaces with luxury interior designs by Priyanka Interiors. We create homes and offices that inspire.",
+  title: "Navalsrijan | Interior Design Experts",
+  description: "Transform your home interiors with Navalsrijan’s modern and elegant designs.",
+  openGraph: {
+    title: "Navalsrijan | Interior Design Experts",
+    description: "Transform your home interiors with Navalsrijan’s modern and elegant designs.",
+    url: "https://navalsrijan.com",
+    siteName: "Navalsrijan",
+  },
 };
+
 
 export default function HomePage() {
   return (
