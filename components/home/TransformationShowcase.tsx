@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import ReactBeforeSliderComponent from 'react-before-after-slider-component';
-import 'react-before-after-slider-component/dist/build.css';
+import React from "react";
+import ReactBeforeSliderComponent from "react-before-after-slider-component";
+import "react-before-after-slider-component/dist/build.css";
 
 type Props = {
   beforeImage: string;
@@ -10,8 +10,8 @@ type Props = {
 };
 
 export default function TransformationShowcase({
-  beforeImage = 'https://images.pexels.com/photos/6585599/pexels-photo-6585599.jpeg',
-  afterImage = 'https://images.pexels.com/photos/8146330/pexels-photo-8146330.jpeg',
+  beforeImage = "https://images.pexels.com/photos/6585599/pexels-photo-6585599.jpeg",
+  afterImage = "https://images.pexels.com/photos/8146330/pexels-photo-8146330.jpeg",
 }: Props) {
   const firstImage = { imageUrl: beforeImage };
   const secondImage = { imageUrl: afterImage };
@@ -54,11 +54,19 @@ export default function TransformationShowcase({
               <style jsx global>{`
                 .before-after-slider {
                   height: 100% !important;
+                  display: block !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  line-height: 0 !important; /* ✅ removes inline space under image */
                 }
+
                 .before-after-slider__first-image-container,
                 .before-after-slider__second-image-container {
                   height: 100% !important;
                   width: 100% !important;
+                  display: block !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
                 }
 
                 .before-after-slider__first-image-container img,
@@ -66,7 +74,9 @@ export default function TransformationShowcase({
                   height: 100% !important;
                   width: 100% !important;
                   object-fit: cover !important;
-                  display: block;
+                  display: block !important;
+                  margin: 0 !important;
+                  padding: 0 !important;
                 }
 
                 .before-after-slider__separator {

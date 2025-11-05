@@ -8,7 +8,7 @@ import FeaturedProjects from "@/components/home/FeaturedProjects";
 
 
 export const metadata = {
-  title: "Navalsrijan | Interior Design Experts",
+  title: "Naval srijan | Interior Design Experts",
   description: "Transform your home interiors with Navalsrijan’s modern and elegant designs.",
   openGraph: {
     title: "Navalsrijan | Interior Design Experts",
