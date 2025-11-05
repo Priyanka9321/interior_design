@@ -79,6 +79,7 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Dropdown */}
+      {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-[var(--navbar-bg)] shadow-lg absolute top-full left-0 w-full text-center py-6 space-y-4 transition-all duration-500">
           {menuItems.map((item) => (
@@ -91,14 +92,13 @@ const Navbar = () => {
               {item}
             </Link>
           ))}
-          <button className="mt-3 text-[15px] tracking-wide hover:text-[var(--accent)] transition-all duration-300">
+          <button className="mt-3 text-sm md:text-[15px] tracking-wide hover:text-[var(--accent)] transition-all duration-300">
             Book a Consultation
           </button>
         </div>
-      )}
+      )}      
     </header>
   );
 };
 
 export default Navbar;
-

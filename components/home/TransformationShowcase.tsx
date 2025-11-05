@@ -11,7 +11,7 @@ type Props = {
 
 export default function TransformationShowcase({
   beforeImage = "https://images.pexels.com/photos/6585599/pexels-photo-6585599.jpeg",
-  afterImage = "https://images.pexels.com/photos/8146330/pexels-photo-8146330.jpeg",
+  afterImage = "https://images.pexels.com/photos/20249656/pexels-photo-20249656.jpeg",
 }: Props) {
   const firstImage = { imageUrl: beforeImage };
   const secondImage = { imageUrl: afterImage };
@@ -45,7 +45,7 @@ export default function TransformationShowcase({
             </span>
 
             {/* Slider */}
-            <div className="relative h-[320px] sm:h-[380px] md:h-[520px] w-full overflow-hidden">
+            <div className="relative h-[250px] sm:h-[340px] md:h-[520px] w-full overflow-hidden">
               <ReactBeforeSliderComponent
                 firstImage={firstImage}
                 secondImage={secondImage}
@@ -54,10 +54,13 @@ export default function TransformationShowcase({
               <style jsx global>{`
                 .before-after-slider {
                   height: 100% !important;
+                  width: 100% !important;
                   display: block !important;
                   margin: 0 !important;
                   padding: 0 !important;
-                  line-height: 0 !important; /* ✅ removes inline space under image */
+                  line-height: 0 !important;
+                  font-size: 0 !important;
+                  vertical-align: top !important;
                 }
 
                 .before-after-slider__first-image-container,
@@ -77,6 +80,8 @@ export default function TransformationShowcase({
                   display: block !important;
                   margin: 0 !important;
                   padding: 0 !important;
+                  line-height: 0 !important;
+                  vertical-align: top !important;
                 }
 
                 .before-after-slider__separator {
@@ -96,6 +101,28 @@ export default function TransformationShowcase({
                 .before-after-slider__separator-line {
                   width: 2px !important;
                   background-color: var(--foreground) !important;
+                }
+
+                /* ✅ Mobile fix for extra 5px white space */
+                @media (max-width: 640px) {
+                  .before-after-slider,
+                  .before-after-slider__first-image-container,
+                  .before-after-slider__second-image-container {
+                    height: 250px !important;
+                  }
+                  .before-after-slider img {
+                    height: 250px !important;
+                    object-fit: cover !important;
+                    display: block !important;
+                    margin-bottom: 0 !important;
+                    vertical-align: top !important;
+                  }
+
+                  /* Remove any inline gaps completely */
+                  .before-after-slider * {
+                    line-height: 0 !important;
+                    font-size: 0 !important;
+                  }
                 }
               `}</style>
             </div>

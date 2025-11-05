@@ -4,12 +4,12 @@ import Image from "next/image";
 
 export default function AboutUs() {
   return (
-    <section className="min-h-screen bg-[var(--background)] py-20 px-6 md:px-12">
+    <section className="min-h-screen bg-[var(--background)] py-20 px-6 md:px-12 border-b border-[var(--accent)]">
       <div className="max-w-7xl mx-auto">
         {/* Grid Layout: Image Left, Content Right */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Side: Image */}
-          <div className="relative group overflow-hidden rounded-lg h-96 md:h-full min-h-[500px]">
+          <div className="relative group overflow-hidden rounded-lg h-64 md:h-[500px] lg:h-full">
             <Image
               src="https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&dpr=2"
               alt="Minimalist Interior Design"
@@ -22,12 +22,10 @@ export default function AboutUs() {
 
           {/* Right Side: Content */}
           <div className="flex flex-col justify-center space-y-8">
-            {/* Section Label (similar to FeaturedProjects “Our Creations”) */}
             <p className="text-[var(--accent)] font-body text-sm tracking-wider uppercase mb-2">
               About Us
             </p>
 
-            {/* Main Heading (matching FeaturedProjects heading style) */}
             <h2 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3">
               Naval Shrijan
             </h2>
@@ -36,7 +34,6 @@ export default function AboutUs() {
               Luxury Interior Design
             </p>
 
-            {/* About Description */}
             <div className="space-y-6">
               <p className="text-[var(--foreground)]/80 font-body leading-relaxed text-base sm:text-lg">
                 Naval Shrijan is a global design company offering end-to-end
@@ -53,8 +50,6 @@ export default function AboutUs() {
               </p>
             </div>
 
-            
-            {/* Know More Button (same hover and typography as “See All Projects”) */}
             <div>
               <button className="group flex items-center gap-3 px-8 py-3 bg-[var(--accent)] text-[var(--foreground)] font-body font-medium tracking-wide hover:bg-transparent hover:border-[var(--accent)] border border-transparent transition-all duration-300">
                 Know More

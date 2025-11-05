@@ -15,10 +15,10 @@ export default function TeamSection() {
   ];
 
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-20 bg-background mt-10">
+    <section className="py-24 px-6 md:px-12 lg:px-20 bg-background border-t border-accent mt-10">
       <div className="max-w-7xl mx-auto">
-        {/* Image Banner - Mobile Top, Desktop Below Header */}
-        <div className="relative w-full h-64 md:h-80 lg:h-96 mb-12 lg:mb-16 overflow-hidden rounded-lg shadow-lg order-first lg:order-last">
+        
+        <div className="relative w-full h-64 md:h-80 lg:h-96 mb-12 lg:mb-16 overflow-hidden shadow-lg order-first lg:order-last">
           <Image
             src="https://images.pexels.com/photos/7550397/pexels-photo-7550397.jpeg"
             alt="Essajees Atelier Team - Group of Design Professionals"
