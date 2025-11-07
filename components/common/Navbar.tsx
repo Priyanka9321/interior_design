@@ -16,7 +16,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = ["Home", "About", "Projects", "Journal", "Contact"];
+  const menuItems = ["Home", "About", "Service", "Project", "Contact"];
 
   return (
     <header
@@ -24,30 +24,23 @@ const Navbar = () => {
         scrolled ? "shadow-[0_2px_4px_rgba(0,0,0,0.08)]" : "shadow-none"
       }`}
     >
-      <nav
-        className="
-          flex justify-between items-center 
-          px-4 sm:px-6 lg:px-18
-          py-4
-          transition-all duration-300
-        "
-      >
+      <nav className="flex justify-between items-center px-4 sm:px-6 lg:px-18 py-4 transition-all duration-300">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center">
           <Link href="/">
             <Image
               src="/Logo.jpeg"
               alt="Logo"
-              width={50}
-              height={50}
-              className="object-contain"
+              width={52}
+              height={52}
+              className="object-contain cursor-pointer"
               priority
             />
           </Link>
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-10">
+        <div className="hidden md:flex items-center space-x-10">
           {menuItems.map((item) => (
             <Link
               key={item}
@@ -57,13 +50,19 @@ const Navbar = () => {
               {item}
             </Link>
           ))}
-        </div>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <button className="text-[15px] tracking-wide hover:text-[var(--accent)] transition-all duration-300">
-            Book a Consultation
-          </button>
+          {/* ✅ Contact Us Button */}
+          <Link
+            href="/contact"
+            className="px-4 py-2 font-medium border border-[var(--accent)] transition-all duration-300 ease-in-out hover:shadow-lg"
+            style={{
+              backgroundColor: "var(--accent)",
+              color: "var(--foreground)",
+              fontFamily: "var(--font-body)",
+            }}
+          >
+            Contact Us
+          </Link>
         </div>
 
         {/* Mobile Menu Icon */}
@@ -73,12 +72,11 @@ const Navbar = () => {
             aria-label="Toggle menu"
             className="text-[var(--foreground)]"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Dropdown */}
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-[var(--navbar-bg)] shadow-lg absolute top-full left-0 w-full text-center py-6 space-y-4 transition-all duration-500">
@@ -92,11 +90,22 @@ const Navbar = () => {
               {item}
             </Link>
           ))}
-          <button className="mt-3 text-sm md:text-[15px] tracking-wide hover:text-[var(--accent)] transition-all duration-300">
-            Book a Consultation
-          </button>
+
+          {/* ✅ Contact Us Button (mobile) */}
+          <Link
+            href="/contact"
+            onClick={() => setIsOpen(false)}
+            className="inline-block px-4 py-2 font-medium border border-[var(--accent)] transition-all duration-300 ease-in-out hover:shadow-lg"
+            style={{
+              backgroundColor: "var(--accent)",
+              color: "var(--foreground)",
+              fontFamily: "var(--font-body)",
+            }}
+          >
+            Contact Us
+          </Link>
         </div>
-      )}      
+      )}
     </header>
   );
 };
