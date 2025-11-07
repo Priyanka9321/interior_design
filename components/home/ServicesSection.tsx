@@ -8,7 +8,7 @@ interface Service {
   id: string;
   title: string;
   description: string;
-  features: string[];
+  features: string[]; // We'll keep features for bullet points
   color: string;
   image: string;
 }
@@ -57,14 +57,13 @@ export default function ServicesSection() {
   const activeService = services.find((s) => s.id === activeTab)!;
 
   return (
-    <div className="bg-[#FAF8F6] text-[#14263E] font-[Spectral] min-h-screen py-16 px-6 md:px-12 lg:px-20">
+    <div className="bg-[#FAF8F6] text-[#14263E] font-[Spectral] min-h-screen py-16 px-6 md:px-12 lg:px-20 border-b border-accent">
       {/* Header */}
       <div className="text-center mb-12">
-      
         <h1 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3">
           Our Awesome Services
         </h1>
-       <p className="text-[var(--foreground)]/80 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed font-[var(--font-body)]">
+        <p className="text-[var(--foreground)]/80 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed font-[var(--font-body)]">
           Explore design philosophies crafted to elevate your spaces with comfort, style, and
           modern luxury.
         </p>
@@ -93,10 +92,10 @@ export default function ServicesSection() {
 
       {/* Tab Content */}
       <div
-        className="grid md:grid-cols-2 gap-10 items-center transition-all duration-700"
+        className="grid md:grid-cols-2 gap-10 items-start transition-all duration-700"
         key={activeService.id}
       >
-        {/* Left Side - Image (Sharp Corners) */}
+        {/* Left Side - Image */}
         <div className="relative h-[400px] w-full shadow-xl overflow-hidden rounded-none">
           <Image
             src={activeService.image}
@@ -107,41 +106,26 @@ export default function ServicesSection() {
           <div className="absolute inset-0 bg-gradient-to-br from-[#00000020] to-[#00000010]"></div>
         </div>
 
-        {/* Right Side - Description & Features */}
+        {/* Right Side - Description, Bullet Points & Button */}
         <div className="flex flex-col gap-6">
           <div>
             <h2 className="font-[Playfair_Display] text-3xl font-semibold mb-2">
               {activeService.title}
             </h2>
             <div className="w-14 h-[3px] bg-[#E2C18C] mb-4"></div>
-            <p className="text-base opacity-80 leading-relaxed">
-              {activeService.description}
-            </p>
+            <p className="text-base opacity-80 leading-relaxed">{activeService.description}</p>
           </div>
 
-          {/* Features */}
-          <div>
-            <h3 className="font-[Playfair_Display] text-lg font-semibold mb-3">
-              Signature Elements
-            </h3>
-            <div className="grid grid-cols-2 gap-3">
-              {activeService.features.map((feature) => (
-                <div
-                  key={feature}
-                  className="group flex items-center gap-2 border border-[#E2C18C] px-4 py-2 cursor-pointer transition-all hover:bg-[#E2C18C]/20"
-                >
-                  <span className="text-[#E2C18C] text-lg font-bold group-hover:translate-x-1 transition-transform">
-                    +
-                  </span>
-                  <span className="text-sm font-medium">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Bullet Points */}
+          <ul className="list-disc list-inside text-base opacity-80 space-y-2">
+            {activeService.features.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
 
-          {/* Button */}
-          <button className="bg-[#E2C18C] text-[#14263E] font-semibold py-3 px-6 w-fit mt-2 flex items-center gap-2 hover:bg-[#14263E] hover:text-[#E2C18C] transition-all">
-            Start Your Journey <ArrowRight size={18} />
+          {/* Main Action Button */}
+          <button className="bg-[#E2C18C] text-[#14263E] font-semibold py-4 px-2 w-fit mt-4 flex items-center gap-3 hover:bg-[#14263E] hover:text-[#E2C18C] transition-all shadow-lg">
+            Explore {activeService.title} <ArrowRight size={20} />
           </button>
         </div>
       </div>

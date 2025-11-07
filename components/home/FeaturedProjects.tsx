@@ -38,13 +38,17 @@ export default function FeaturedProjects() {
   ]);
 
   return (
-    <section className="py-20 bg-[var(--background)]">
+    <section className="py-20 bg-[var(--background)] border-b border-accent">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="mb-16">
-          <p className="text-[var(--accent)] font-body text-sm tracking-wider uppercase mb-4">
-            Our Creations
-          </p>
+           <div className="inline-flex items-center mb-6">
+            <div className="w-12 h-px bg-accent mr-3" />
+            <p className="text-accent font-semibold text-sm md:text-base tracking-widest uppercase">
+              Our Creations
+            </p>
+          </div>
+
           <h2 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3">
             Featured Projects
           </h2>
@@ -96,14 +100,7 @@ export default function FeaturedProjects() {
           </button>
         </div>
 
-        {/* Closing Statement */}
-        <div className="mt-16 pt-12 border-t border-[var(--accent)] border-opacity-20">
-          <p className="font-body text-[var(--foreground)] opacity-70 max-w-3xl">
-            While each project has the inimitable EA signature, they are all
-            distinctive in their inception, design, and execution, all bearing a
-            version of luxury that unique to that space.
-          </p>
-        </div>
+      
       </div>
     </section>
   );

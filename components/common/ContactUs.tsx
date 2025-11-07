@@ -1,168 +1,101 @@
 "use client";
 
-import { Mail, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import React from "react";
+import Link from "next/link";
 
-interface ContactItem {
-  type: string;
-  email: string;
-  subject?: string;
-  description: string;
+interface ContactContent {
+  instagram: {
+    title: string;
+    handle: string;
+    cta: string;
+  };
+  contact: {
+    tagline: string;
+    description: string;
+    email: string;
+    subject: string;
+    cta: string;
+  };
 }
 
-const contactData: ContactItem[] = [
-  {
-    type: "Project Inquiries",
+const contactContent: ContactContent = {
+  instagram: {
+    title: "Naval Srijan",
+    handle: "on Instagram",
+    cta: "FOLLOW NOW",
+  },
+  contact: {
+    tagline: "Looking to elevate the aesthetic of your space?",
+    description:
+      "Have a question for us? Let's talk. For all project inquiries, please email",
     email: "sarah@essajeesatelier.com",
     subject: "NEW PROJECT",
-    description:
-      "For all project inquiries, please email us with the subject line NEW PROJECT",
+    cta: "CONTACT US",
   },
-  {
-    type: "Career Opportunities",
-    email: "careers@essajeesatelier.com",
-    description: "For all job inquiries, please reach out to our careers team",
-  },
-];
+};
 
 export default function ContactUs() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
-  const handleEmailClick = (email: string, subject?: string) => {
-    const mailtoLink = subject
-      ? `mailto:${email}?subject=${encodeURIComponent(subject)}`
-      : `mailto:${email}`;
-    window.location.href = mailtoLink;
-  };
-
   return (
-    <section
-      className="min-h-screen px-6 py-20 border-t"
-      style={{ backgroundColor: "#FAF8F6", borderColor: "#E2C18C" }}
-    >
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div>
-            <h2 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3 text-[#14263E]">
-              Get In Touch
-            </h2>
-            <p className="text-lg text-[#14263E]/70 font-[Spectral]">
-              Have a question for us? Let's talk.
-            </p>
-          </div>
-        </div>
-
-        {/* Contact Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {contactData.map((item, index) => (
-            <div
-              key={index}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
-              className="p-8 transition-all duration-300 border-2 cursor-pointer"
-              style={{
-                backgroundColor: hoveredCard === index ? "#FFF9F5" : "#ffffff",
-                borderColor: hoveredCard === index ? "#E2C18C" : "#f0f0f0",
-                boxShadow:
-                  hoveredCard === index
-                    ? "0 8px 30px rgba(226, 193, 140, 0.15)"
-                    : "0 2px 10px rgba(0, 0, 0, 0.05)",
-              }}
-            >
-              <div className="flex items-start gap-4 mb-4">
-                <Mail
-                  size={28}
-                  style={{ color: "#E2C18C" }}
-                  className="flex-shrink-0 mt-1"
-                />
-                <h3
-                  className="text-2xl"
-                  style={{
-                    fontFamily: "Playfair Display",
-                    color: "#14263E",
-                    fontWeight: 600,
-                    letterSpacing: "0.5px",
-                  }}
-                >
-                  {item.type}
+    <section className="py-24 px-6 md:px-12 lg:px-20 bg-background">
+      <div className="max-w-7xl mx-auto">
+        {/* Single Card */}
+        <div className="border-y border-accent p-12 md:p-16">
+          {/* Instagram Section */}
+          <div className="mb-12 pb-12 border-b border-accent">
+            <div className="flex items-start justify-between flex-col md:flex-row gap-6">
+              {/* Left side — text */}
+              <div>
+                <p className="text-sm tracking-widest text-foreground/70 font-body uppercase mb-4">
+                  {contactContent.instagram.handle}
+                </p>
+                <h3 className="text-4xl md:text-5xl font-heading font-semibold text-foreground mb-8">
+                  {contactContent.instagram.title}
                 </h3>
               </div>
 
-              <p
-                className="mb-6 text-base leading-relaxed"
-                style={{
-                  fontFamily: "Spectral",
-                  color: "#14263E",
-                  fontWeight: 400,
-                }}
+              {/* Right side — button */}
+              <Link
+                href="https://instagram.com/essajeesatelier"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {item.description}
-              </p>
+                <button className="bg-transparent border-2 border-foreground text-foreground px-8 py-3 font-body font-semibold tracking-wide hover:bg-foreground hover:text-background transition-all duration-300">
+                  {contactContent.instagram.cta}
+                </button>
+              </Link>
+            </div>
+          </div>
 
-              <button
-                onClick={() => handleEmailClick(item.email, item.subject)}
-                className="w-full flex items-center justify-between px-6 py-3 transition-all duration-300"
-                style={{
-                  backgroundColor:
-                    hoveredCard === index ? "#E2C18C" : "transparent",
-                  color: hoveredCard === index ? "#14263E" : "#E2C18C",
-                  border: `1px solid #E2C18C`,
-                  fontFamily: "Spectral",
-                  fontWeight: 500,
-                }}
-                onMouseEnter={(e) => {
-                  if (hoveredCard !== index) return;
-                  e.currentTarget.style.backgroundColor = "#E2C18C";
-                  e.currentTarget.style.color = "#14263E";
-                }}
-                onMouseLeave={(e) => {
-                  if (hoveredCard !== index) return;
-                  e.currentTarget.style.backgroundColor = "transparent";
-                  e.currentTarget.style.color = "#E2C18C";
-                }}
-              >
-                <span>{item.email}</span>
-                <ArrowRight size={18} className="ml-2" />
+          {/* Contact Section */}
+          <div>
+            <div className="flex items-start justify-between flex-col md:flex-row gap-6">
+              {/* Left Side — Text */}
+              <div className="max-w-3xl">
+                <h2 className="text-3xl md:text-4xl font-heading font-semibold text-foreground mb-8">
+                  {contactContent.contact.tagline}
+                </h2>
+
+                <p className="text-base md:text-lg text-foreground font-body mb-8 leading-relaxed">
+                  {contactContent.contact.description}{" "}
+                  <Link
+                    href={`mailto:${contactContent.contact.email}?subject=${contactContent.contact.subject}`}
+                    className="font-semibold text-accent hover:opacity-80 transition-opacity"
+                  >
+                    {contactContent.contact.email}
+                  </Link>{" "}
+                  with the subject{" "}
+                  <span className="font-semibold italic">
+                    {contactContent.contact.subject}
+                  </span>
+                </p>
+              </div>
+
+              {/* Right Side — Button */}
+              <button className="bg-transparent border-2 border-foreground text-foreground px-8 py-3 font-body font-semibold tracking-wide hover:bg-foreground hover:text-background transition-all duration-300 w-fit">
+                {contactContent.contact.cta}
               </button>
             </div>
-          ))}
-        </div>
-
-        {/* Additional CTA */}
-        <div className="text-center">
-          <p
-            className="text-base mb-8"
-            style={{
-              fontFamily: "Spectral",
-              color: "#14263E",
-              fontWeight: 400,
-            }}
-          >
-            Prefer to reach out through a different method?
-          </p>
-          <button
-            className="inline-flex items-center gap-3 px-8 py-4 transition-all duration-300"
-            style={{
-              backgroundColor: "#E2C18C",
-              color: "#14263E",
-              border: "1px solid #E2C18C",
-              fontFamily: "Spectral",
-              fontWeight: 500,
-              letterSpacing: "0.5px",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.color = "#E2C18C";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "#E2C18C";
-              e.currentTarget.style.color = "#14263E";
-            }}
-          >
-            <Mail size={20} />
-            Send us a Message
-          </button>
+          </div>
         </div>
       </div>
     </section>

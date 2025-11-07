@@ -1,158 +1,143 @@
 'use client';
 
 import React from 'react';
-import { Mail, MapPin, Phone, Instagram, Facebook, Linkedin } from 'lucide-react';
-
-interface FooterLink {
-  label: string;
-  href: string;
-}
-
-interface FooterSection {
-  title: string;
-  links: FooterLink[];
-}
-
-interface ContactInfo {
-  address: string;
-  phone: string;
-  email: string;
-}
+import { MapPin, Phone, Mail, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
-  const footerSections: FooterSection[] = [
-    {
-      title: 'Services',
-      links: [
-        { label: 'Residential Design', href: '#' },
-        { label: 'Commercial Spaces', href: '#' },
-        { label: 'Space Planning', href: '#' },
-        { label: 'Consultations', href: '#' },
-      ],
-    },
-    {
-      title: 'Company',
-      links: [
-        { label: 'About Us', href: '#' },
-        { label: 'Our Portfolio', href: '#' },
-        { label: 'Blog', href: '#' },
-        { label: 'Careers', href: '#' },
-      ],
-    },
-    {
-      title: 'Support',
-      links: [
-        { label: 'Contact Us', href: '#' },
-        { label: 'FAQ', href: '#' },
-        { label: 'Privacy Policy', href: '#' },
-        { label: 'Terms & Conditions', href: '#' },
-      ],
-    },
+  const quickLinks = [
+    { label: 'Home', href: '#' },
+    { label: 'About Us', href: '#' },
+    { label: 'Our Services', href: '#' },
+    { label: 'Our Projects', href: '#' },
+    { label: 'Contact Us', href: '#' },
   ];
 
-  const contactInfo: ContactInfo = {
-    address: '123 Design Street, Creative City, CC 12345',
-    phone: '+1 (555) 123-4567',
-    email: 'hello@luxuryinteriors.com',
-  };
+  const services = [
+    { label: 'Construction', href: '#' },
+    { label: 'Architecture', href: '#' },
+    { label: 'Interior', href: '#' },
+  ];
 
   const socialLinks = [
     { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
     { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Twitter, href: '#', label: 'Twitter' },
   ];
 
   return (
     <footer className="bg-white border-t border-gray-200">
-      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           
-          {/* Brand Section */}
-          <div className="lg:col-span-2">
-            <h3 className="text-2xl font-semibold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--foreground)' }}>
-              Luxury Interiors
-            </h3>
-            <p className="text-gray-600 leading-relaxed mb-6" style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem' }}>
-              Transforming spaces into timeless sanctuaries. We specialize in elegant, sophisticated interior design that reflects your unique lifestyle.
-            </p>
-            
-            {/* Contact Information */}
-            <div className="space-y-3">
-              <div className="flex items-start gap-3 text-sm">
-                <MapPin size={18} style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '2px' }} />
-                <span style={{ color: 'var(--foreground)' }}>{contactInfo.address}</span>
+          {/* Get In Touch */}
+          <div>
+            <h4 className="text-lg font-semibold mb-5" style={{ fontFamily: 'var(--font-heading)' }}>
+              Get In Touch
+            </h4>
+            <div className="space-y-3 text-sm text-gray-700" style={{ fontFamily: 'var(--font-body)' }}>
+              <div className="flex items-start gap-3">
+                <MapPin size={18} className="text-accent mt-[2px]" />
+                <span>Dehradun, Uttarakhand</span>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Phone size={18} style={{ color: 'var(--accent)' }} />
-                <a href={`tel:${contactInfo.phone}`} style={{ color: 'var(--foreground)' }} className="hover:text-accent transition-colors">
-                  {contactInfo.phone}
+              <div className="flex items-center gap-3">
+                <Phone size={18} className="text-accent" />
+                <a href="tel:6396847464" className="hover:text-accent transition-colors">
+                  6396847464
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Mail size={18} style={{ color: 'var(--accent)' }} />
-                <a href={`mailto:${contactInfo.email}`} style={{ color: 'var(--foreground)' }} className="hover:text-accent transition-colors">
-                  {contactInfo.email}
+              <div className="flex items-center gap-3">
+                <Mail size={18} className="text-accent" />
+                <a href="mailto:Navalsrijan.pvt.ltd@gmail.com" className="hover:text-accent transition-colors">
+                  Navalsrijan.pvt.ltd@gmail.com
                 </a>
+              </div>
+
+              {/* Social Icons */}
+              <div className="flex items-center gap-4 mt-4">
+                {socialLinks.map(({ icon: Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="text-gray-700 hover:text-accent transition-colors"
+                  >
+                    <Icon size={20} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Footer Links */}
-          {footerSections.map((section) => (
-            <div key={section.title}>
-              <h4 className="font-semibold mb-5 text-sm uppercase tracking-wide" style={{ fontFamily: 'var(--font-heading)', color: 'var(--foreground)' }}>
-                {section.title}
-              </h4>
-              <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-gray-600 hover:text-accent transition-colors text-sm"
-                      style={{ fontFamily: 'var(--font-body)' }}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-lg font-semibold mb-5" style={{ fontFamily: 'var(--font-heading)' }}>
+              Quick Links
+            </h4>
+            <ul className="space-y-3 text-sm text-gray-700" style={{ fontFamily: 'var(--font-body)' }}>
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <a href={link.href} className="hover:text-accent transition-colors">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <h4 className="text-lg font-semibold mb-5" style={{ fontFamily: 'var(--font-heading)' }}>
+              Services
+            </h4>
+            <ul className="space-y-3 text-sm text-gray-700" style={{ fontFamily: 'var(--font-body)' }}>
+              {services.map((service) => (
+                <li key={service.label}>
+                  <a href={service.href} className="hover:text-accent transition-colors">
+                    {service.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div>
+            <h4 className="text-lg font-semibold mb-5" style={{ fontFamily: 'var(--font-heading)' }}>
+              Newsletter
+            </h4>
+            <p className="text-sm mb-4 text-gray-700" style={{ fontFamily: 'var(--font-body)' }}>
+              Subscribe to get our latest updates.
+            </p>
+            <form className="flex flex-col gap-3">
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="border border-gray-300  px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="border border-gray-300  px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              />
+              <button
+                type="submit"
+                className="bg-accent text-white px-4 py-2 text-sm hover:bg-accent-dark transition-colors"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
         </div>
 
         {/* Divider */}
         <div className="h-px bg-gray-200 mb-8"></div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          
-          {/* Copyright */}
-          <p className="text-sm text-gray-600" style={{ fontFamily: 'var(--font-body)' }}>
-            © {currentYear} Luxury Interiors. All rights reserved.
-          </p>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-6">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                className="transition-colors"
-                style={{ color: 'var(--foreground)' }}
-              >
-                <Icon size={20} className="hover:text-accent transition-colors" />
-              </a>
-            ))}
-          </div>
-
-          {/* Payment Methods or Trust Badges */}
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <span>Certified & Insured</span>
-          </div>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-sm text-gray-600 font-body">
+          <p>© {currentYear} Naval Srijan, All rights reserved</p>
+          <p>Powered by Mentation</p>
         </div>
       </div>
     </footer>
