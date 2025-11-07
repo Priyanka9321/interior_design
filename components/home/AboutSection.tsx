@@ -87,7 +87,6 @@ const AboutUsSection = () => {
             </div>
           </div>
 
-          
           <div className="relative h-96 lg:h-[500px] overflow-hidden shadow-xl group aspect-square">
             <Image
               src="https://images.pexels.com/photos/6301172/pexels-photo-6301172.jpeg"
@@ -97,42 +96,9 @@ const AboutUsSection = () => {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"
               className="object-cover group-hover:scale-110 transition-all duration-700"
             />
-
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/45 group-hover:bg-black/30 transition-all duration-500"></div>
-
-            {/* Text Content */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div
-                className="text-center space-y-4 p-8"
-                style={{ color: "var(--background)" }}
-              >
-                <p
-                  className="text-lg font-medium"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  Luxury Interior Design
-                </p>
-
-                <div
-                  className="text-5xl font-light"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Premium Quality
-                </div>
-
-                <p
-                  className="text-sm opacity-80"
-                  style={{ fontFamily: "var(--font-body)" }}
-                >
-                  Transforming spaces with elegance and innovation
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
-      
         {/* Services Grid */}
         <div className="mt-20 pt-20 border-t border-accent">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
