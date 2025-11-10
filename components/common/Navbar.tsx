@@ -16,7 +16,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = ["Home", "About", "Service", "Project", "Contact"];
+  const menuItems = ["Home", "About", "Services", "Projects", "Contact"];
 
   return (
     <header
@@ -26,17 +26,14 @@ const Navbar = () => {
     >
       <nav className="flex justify-between items-center px-4 sm:px-6 lg:px-18 py-4 transition-all duration-300">
         {/* Logo */}
-        <div className="flex items-center">
-          <Link href="/">
-            <Image
-              src="/Logo.jpeg"
-              alt="Logo"
-              width={52}
-              height={52}
-              className="object-contain cursor-pointer"
-              priority
-            />
-          </Link>
+        <div className="relative w-[52px] h-[52px]">
+          <Image
+            src="/Logo.jpeg"
+            alt="Logo"
+            fill
+            className="object-contain cursor-pointer"
+            priority
+          />
         </div>
 
         {/* Desktop Menu */}

@@ -100,25 +100,30 @@ export default function TeamSection() {
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors duration-500 flex items-end justify-center opacity-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-all duration-500 flex items-end justify-center opacity-0 group-hover:opacity-100">
                   <div className="flex gap-4 pb-6">
+                    {/* LinkedIn */}
                     <a
                       href={member.social.linkedin}
-                      className="p-2 bg-accent/90 hover:bg-accent text-foreground rounded-full transition-all"
+                      className="w-10 h-10 flex items-center justify-center rounded-full bg-accent text-foreground border border-accent hover:bg-transparent hover:text-accent transition-all"
                       aria-label="LinkedIn"
                     >
                       <Linkedin size={18} />
                     </a>
+
+                    {/* Instagram */}
                     <a
                       href={member.social.instagram}
-                      className="p-2 bg-accent/90 hover:bg-accent text-foreground rounded-full transition-all"
+                      className="w-10 h-10 flex items-center justify-center rounded-full bg-accent text-foreground border border-accent hover:bg-transparent hover:text-accent transition-all"
                       aria-label="Instagram"
                     >
                       <Instagram size={18} />
                     </a>
+
+                    {/* Email */}
                     <a
                       href={`mailto:${member.email}`}
-                      className="p-2 bg-accent/90 hover:bg-accent text-foreground rounded-full transition-all"
+                      className="w-10 h-10 flex items-center justify-center rounded-full bg-accent text-foreground border border-accent hover:bg-transparent hover:text-accent transition-all"
                       aria-label="Email"
                     >
                       <Mail size={18} />

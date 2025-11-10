@@ -69,17 +69,16 @@ const OurProcess: React.FC = () => {
                 key={index}
                 className="group relative bg-white/10 backdrop-blur-sm rounded-lg border border-[var(--accent)]/40 p-8 transition-all duration-500 hover:bg-white/20 hover:border-[var(--accent)]/60 flex flex-col"
               >
-                {/* Step Icon */}
-                <div className="mb-6 p-3 w-fit rounded-full border border-[var(--accent)]/30 group-hover:border-[var(--accent)]/70 transition-all">
-                  <Icon className="w-8 h-8 text-[var(--accent)] opacity-80" />
+                {/* ICON – filled normally, outline on hover */}
+                <div className="mb-6 p-3 w-fit rounded-full border border-[var(--accent)]/30 group-hover:border-[var(--accent)] transition-all duration-500">
+                  <Icon className="w-8 h-8 text-[var(--accent)] transition-all duration-500 group-hover:fill-transparent group-hover:stroke-[var(--accent)]" />
                 </div>
 
-                {/* Step Number */}
-                <span className="text-5xl md:text-6xl font-heading font-bold text-[var(--accent)]/25 group-hover:text-[var(--accent)]/50 mb-4 transition-colors duration-500">
-                  {step.number}
-                </span>
+                {/* STEP HEADING (instead of number) */}
+                <h3 className="text-2xl font-semibold font-heading tracking-wide text-[var(--accent)] mb-3">
+                  {step.title}
+                </h3>
 
-            
                 {/* Accent Line */}
                 <div className="w-12 h-[2px] bg-[var(--accent)] mb-6 transition-all duration-500 group-hover:w-16"></div>
 
@@ -88,7 +87,7 @@ const OurProcess: React.FC = () => {
                   {step.description}
                 </p>
 
-                {/* Connection Line */}
+                {/* Connecting line between cards */}
                 {index < processSteps.length - 1 && (
                   <div className="hidden lg:block absolute -right-5 top-1/2 w-10 h-[2px] bg-gradient-to-r from-[var(--accent)]/30 to-transparent transform -translate-y-1/2"></div>
                 )}
