@@ -47,19 +47,6 @@ const Navbar = () => {
               {item}
             </Link>
           ))}
-
-          {/* ✅ Contact Us Button */}
-          <Link
-            href="/contact"
-            className="px-4 py-2 font-medium border border-[var(--accent)] transition-all duration-300 ease-in-out hover:shadow-lg"
-            style={{
-              backgroundColor: "var(--accent)",
-              color: "var(--foreground)",
-              fontFamily: "var(--font-body)",
-            }}
-          >
-            Contact Us
-          </Link>
         </div>
 
         {/* Mobile Menu Icon */}
@@ -87,20 +74,6 @@ const Navbar = () => {
               {item}
             </Link>
           ))}
-
-          {/* ✅ Contact Us Button (mobile) */}
-          <Link
-            href="/contact"
-            onClick={() => setIsOpen(false)}
-            className="inline-block px-4 py-2 font-medium border border-[var(--accent)] transition-all duration-300 ease-in-out hover:shadow-lg"
-            style={{
-              backgroundColor: "var(--accent)",
-              color: "var(--foreground)",
-              fontFamily: "var(--font-body)",
-            }}
-          >
-            Contact Us
-          </Link>
         </div>
       )}
     </header>

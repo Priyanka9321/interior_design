@@ -17,13 +17,14 @@ const HeroSection = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
 
       {/* ✨ Text on Video */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center px-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-background mb-4">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+       <p className="text-lg md:text-2xl text-accent mb-4">
           Creative Interior Design
-        </h1>
-        <p className="text-lg md:text-2xl text-gray-200">
-          Transform Your Space Into a Masterpiece
         </p>
+        <p className="font-heading text-3xl md:text-5xl font-semibold text-background tracking-widest">
+          Where Comfort Meets Elegance
+        </p>
+       
       </div>
     </section>
   );

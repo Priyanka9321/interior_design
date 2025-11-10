@@ -78,3 +78,30 @@ html, body {
   width: 100%;
   overflow-x: hidden;
 }
+
+
+/* Sharp Input & Select UI */
+
+.custom-input,
+.custom-select {
+  width: 100%;
+  background: transparent;
+  border: 1.5px solid var(--foreground);
+  padding: 10px;
+  font-size: 15px;
+  outline: none;
+  border-radius: 0; /* ✅ Sharp corners */
+  transition: all 0.3s ease;
+}
+
+.custom-input:hover,
+.custom-select:hover,
+.custom-input:focus,
+.custom-select:focus {
+  border-color: var(--accent); /* ✅ Accent hover */
+}
+
+.custom-select {
+  appearance: none; /* ✅ Removes default dropdown UI */
+  cursor: pointer;
+}
