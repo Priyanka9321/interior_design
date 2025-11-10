@@ -39,7 +39,7 @@ export default function ContactUs() {
     <section className="py-24 px-6 md:px-12 lg:px-20 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Single Card */}
-        <div className="border-y border-accent p-12 md:p-16">
+        <div className="p-12 md:p-16">
           {/* Instagram Section */}
           <div className="mb-12 pb-12 border-b border-accent">
             <div className="flex items-start justify-between flex-col md:flex-row gap-6">

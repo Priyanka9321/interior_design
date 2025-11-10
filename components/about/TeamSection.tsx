@@ -1,108 +1,146 @@
+"use client";
+
 import Image from "next/image";
+import { Mail, Linkedin, Instagram } from "lucide-react";
+
+interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  email: string;
+  social: {
+    linkedin?: string;
+    instagram?: string;
+  };
+}
+
+const teamData: TeamMember[] = [
+  {
+    id: 1,
+    name: "Alexandra Chen",
+    role: "Lead Interior Designer",
+    bio: "With over 12 years of experience, Alexandra specializes in luxury residential and commercial spaces with a focus on sustainable design.",
+    image:
+      "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+    email: "alexandra@interiordesign.com",
+    social: {
+      linkedin: "#",
+      instagram: "#",
+    },
+  },
+  {
+    id: 2,
+    name: "Marcus Rodriguez",
+    role: "Design Strategist",
+    bio: "Marcus brings innovative vision to every project, transforming spaces into curated experiences that reflect client personalities.",
+    image:
+      "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+    email: "marcus@interiordesign.com",
+    social: {
+      linkedin: "#",
+      instagram: "#",
+    },
+  },
+  {
+    id: 3,
+    name: "Sophia Williams",
+    role: "Project Manager",
+    bio: "Sophia ensures seamless execution of every design project, maintaining excellence from concept through completion.",
+    image:
+      "https://images.pexels.com/photos/3775533/pexels-photo-3775533.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+    email: "sophia@interiordesign.com",
+    social: {
+      linkedin: "#",
+      instagram: "#",
+    },
+  },
+  {
+    id: 4,
+    name: "James Mitchell",
+    role: "Color & Materials Specialist",
+    bio: "James has an eye for the perfect palette and texture combinations that elevate every interior space.",
+    image:
+      "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
+    email: "james@interiordesign.com",
+    social: {
+      linkedin: "#",
+      instagram: "#",
+    },
+  },
+];
 
 export default function TeamSection() {
-  const teamStats = [
-    { number: "35+", label: "Design Professionals" },
-    { number: "100%", label: "Dedicated Team Approach" },
-    { number: "Pan-India", label: "Expert Talent Pool" },
-  ];
-
-  const teamValues = [
-    "Masters from Prestigious Universities",
-    "Former Studio Owners",
-    "Diverse Backgrounds",
-    "Process-Oriented Approach",
-  ];
-
   return (
-    <section className="py-24 px-6 md:px-12 lg:px-20 bg-background border-t border-accent mt-10">
+    <section className="py-24 px-4 md:px-8 lg:px-16 bg-background border-b border-accent">
       <div className="max-w-7xl mx-auto">
-        
-        <div className="relative w-full h-64 md:h-80 lg:h-96 mb-12 lg:mb-16 overflow-hidden shadow-lg order-first lg:order-last">
-          <Image
-            src="https://images.pexels.com/photos/7550397/pexels-photo-7550397.jpeg"
-            alt="Essajees Atelier Team - Group of Design Professionals"
-            fill
-            className="object-cover hover:scale-105 transition-transform duration-700"
-            priority
-          />
-          {/* Overlay accent */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent"></div>
-        </div>
         {/* Section Header */}
-        <div className="mb-16">
-          <h2 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3">
-            The Team
-          </h2>
+        <div className="max-w-7xl mx-auto mb-16">
+          <div className="mb-8">
+            <p className="text-[#E2C18C] text-xl tracking-widest font-medium mb-4">
+              Team Member
+            </p>
+            <h1 className="font-[Playfair_Display] text-3xl md:text-4xl font-semibold mb-3">
+              Meet Our Visionary Designers
+            </h1>
+          </div>
         </div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
-          {/* Left Content - Takes 2 columns */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="space-y-4">
-              <p className="text-base text-foreground/80 leading-relaxed">
-                Essajees Atelier has a team of 35, and growing, young, curious,
-                and extremely talented design professionals. The team is a mix
-                of architects and interior designers from different parts of the
-                country.
-              </p>
-              <p className="text-base text-foreground/80 leading-relaxed">
-                It consists of members who have completed their Masters from
-                prestigious universities as well as those who ran their own
-                studios before joining Essajees Atelier.
-              </p>
-            </div>
-
-            {/* Team Values */}
-            <div className="pt-4">
-              <h3 className="text-2xl font-serif font-semibold text-foreground mb-6">
-                Our Strength
-              </h3>
-              <ul className="space-y-3">
-                {teamValues.map((value, idx) => (
-                  <li key={idx} className="flex items-start gap-4">
-                    <span className="inline-block w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></span>
-                    <span className="text-foreground font-body">{value}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Description */}
-            <p className="text-base text-foreground/80 leading-relaxed">
-              The team is made up of diverse backgrounds but is united in their
-              enthusiasm, positive outlook, eagerness to learn, and is
-              incredibly focused and process-oriented.
-            </p>
-
-            <p className="text-base text-foreground/80 leading-relaxed">
-              Every project Essajees Atelier undertakes is allotted to dedicated
-              teams that work with the clients from start to finish.
-            </p>
-          </div>
-
-          {/* Right - Stats Card */}
-          <div className="bg-white p-8 rounded-lg shadow-lg h-fit">
-            <h3 className="text-xl font-serif font-semibold text-foreground mb-6">
-              By The Numbers
-            </h3>
-            <div className="space-y-6">
-              {teamStats.map((stat, idx) => (
-                <div
-                  key={idx}
-                  className="border-b border-accent/20 pb-4 last:border-b-0 last:pb-0"
-                >
-                  <div className="text-2xl font-serif font-semibold text-accent mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm text-foreground font-body">
-                    {stat.label}
+        {/* Team Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {teamData.map((member) => (
+            <div key={member.id} className="group cursor-pointer">
+              {/* Image Container */}
+              <div className="relative overflow-hidden mb-6 aspect-square bg-foreground/5 rounded-sm">
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors duration-500 flex items-end justify-center opacity-0 group-hover:opacity-100">
+                  <div className="flex gap-4 pb-6">
+                    <a
+                      href={member.social.linkedin}
+                      className="p-2 bg-accent/90 hover:bg-accent text-foreground rounded-full transition-all"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin size={18} />
+                    </a>
+                    <a
+                      href={member.social.instagram}
+                      className="p-2 bg-accent/90 hover:bg-accent text-foreground rounded-full transition-all"
+                      aria-label="Instagram"
+                    >
+                      <Instagram size={18} />
+                    </a>
+                    <a
+                      href={`mailto:${member.email}`}
+                      className="p-2 bg-accent/90 hover:bg-accent text-foreground rounded-full transition-all"
+                      aria-label="Email"
+                    >
+                      <Mail size={18} />
+                    </a>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Team Member Info */}
+              <div>
+                <h3 className="font-heading text-xl text-foreground mb-1">
+                  {member.name}
+                </h3>
+                <p className="text-accent text-sm uppercase tracking-wide mb-3 font-body">
+                  {member.role}
+                </p>
+                <p className="font-body text-foreground/65 text-sm leading-relaxed line-clamp-2">
+                  {member.bio}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

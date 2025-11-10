@@ -11,11 +11,6 @@ const AboutSection = () => {
     { value: '100', label: 'projects', sublabel: 'completed' }
   ];
 
-  const cities = [
-    'Mumbai', 'Surat', 'Goa', 'Bangalore', 'Hyderabad',
-    'Kolkata', 'Dubai', 'Pune', 'Chennai', 'Malviya', 'Nashik'
-  ];
-
   return (
     <section className="min-h-screen bg-[#FAF8F6] text-[#14263E] py-20 px-6 md:px-12">
       {/* Header */}
@@ -31,7 +26,7 @@ const AboutSection = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start mb-20">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-start mb-20 ">
         {/* Left Column - Story */}
         <div className="space-y-6">
           <p className="font-['Spectral'] text-lg leading-relaxed text-[#14263E]">
@@ -72,30 +67,6 @@ const AboutSection = () => {
           ))}
         </div>
       </div>
-
-      {/* Cities Section */}
-      <div className="max-w-6xl mx-auto">
-        <div className="border-t border-b border-[#E2C18C] border-opacity-20 py-12">
-          <h3 className="font-['Playfair_Display'] text-2xl md:text-2xl font-600 mb-8">
-            Our Presence Across Cities
-          </h3>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {cities.map((city, idx) => (
-              <div
-                key={idx}
-                className="font-['Spectral'] text-center py-2 px-2 text-sm md:text-base text-[#14263E] 
-                           hover:text-[#E2C18C] border border-transparent hover:border-[#E2C18C] 
-                           transition-all duration-300 cursor-pointer"
-              >
-                {city}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-    
     </section>
   );
 };

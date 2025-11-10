@@ -11,7 +11,7 @@ export default function PrincipalDesigner() {
   return (
     <section
       ref={ref}
-      className="relative w-full overflow-hidden bg-background py-12 "
+      className="relative w-full overflow-hidden bg-background py-20 border-t border-accent"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Image with smooth hover effect */}
