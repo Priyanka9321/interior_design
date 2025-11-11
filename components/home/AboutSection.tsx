@@ -16,14 +16,14 @@ const AboutUsSection = () => {
       icon: Building2,
     },
     {
-      title: "Commercial Design",
-      description: "Professional spaces tailored to your business",
-      icon: Store,
-    },
-    {
       title: "Residential Design",
       description: "Beautiful homes designed for modern living",
       icon: Home,
+    },
+    {
+      title: "Commercial Design",
+      description: "Professional spaces tailored to your business",
+      icon: Store,
     },
   ];
 
@@ -44,7 +44,7 @@ const AboutUsSection = () => {
               </p>
             </div>
             <h1 className="text-4xl md:text-4xl font-heading font-semibold text-foreground mb-6 leading-tight">
-              We Are The Best Interior Designing Firm In Your City
+              Spaces That Reflect You
             </h1>
 
             <p
@@ -54,10 +54,14 @@ const AboutUsSection = () => {
                 color: "var(--foreground)",
               }}
             >
-              Bringing your vision to life with innovative designs and unmatched
-              expertise. We transform spaces into functional art.
+              At Naval Srijan, we believe architecture and interior design are
+              more than aesthetics they reflect the people who live in the
+              space. Driven by innovation and attention to detail, we blend
+              functionality with elegance. Through a collaborative design
+              approach, your vision guides every decision. From space planning
+              and color consultation to custom furnishings, we create refined,
+              timeless, and truly unique environments.
             </p>
-
             <button
               className="px-8 py-3 font-medium transition-all duration-300 ease-in-out hover:shadow-lg"
               style={{

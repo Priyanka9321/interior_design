@@ -1,7 +1,6 @@
 import HeroSection from "@/components/home/HeroSection";
 import AboutSection from "@/components/home/AboutSection";
-import ServicesSection from "@/components/home/ServicesSection";
-import WhyChooseUs from "@/components/home/OurProcess";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
 import TransformationShowcase from "@/components/home/TransformationShowcase";
 import Testimonials from "@/components/home/Testimonials";
 import FeaturedProjects from "@/components/home/FeaturedProjects";
@@ -27,10 +26,7 @@ export default function HomePage() {
       <HeroSection />
       <AboutSection />
       <FeaturedProjects />
-
       <WhatWeOffer />
-
-      <ServicesSection />
       <WhyChooseUs />
       <TransformationShowcase
         beforeImage={
