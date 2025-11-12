@@ -19,10 +19,27 @@ export default function ProjectPage() {
   return (
     <main className="flex flex-col max-w-7xl mx-auto">
       <PageHero
-        title="Our Curated Project Collection"
-        subtitle="Designing spaces that inspire — from concept to completion."
-        backgroundImage="https://images.pexels.com/photos/6474471/pexels-photo-6474471.jpeg"
-      />
+              slides={[
+                {
+                  title: "Crafting Experiences Through Design",
+                  subtitle: "Luxury spaces crafted with precision and elegance.",
+                  backgroundImage:
+                    "https://images.pexels.com/photos/7061393/pexels-photo-7061393.jpeg",
+                },
+                {
+                  title: "Interiors That Inspire",
+                  subtitle: "Transforming spaces into timeless experiences.",
+                  backgroundImage:
+                    "https://images.pexels.com/photos/34628299/pexels-photo-34628299.jpeg",
+                },
+                {
+                  title: "Architecture & Construction",
+                  subtitle: "Building beautiful, functional environments.",
+                  backgroundImage:
+                    "https://images.pexels.com/photos/7534571/pexels-photo-7534571.jpeg",
+                },
+              ]}
+            />
 
       {/* ✅ Client component allowed */}
       <ProjectOverview />
