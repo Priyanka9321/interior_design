@@ -11,13 +11,16 @@ interface Slide {
 }
 
 interface Props {
-  slides: Slide[];
+  slides?: Slide[]; // <-- optional now
   autoPlayInterval?: number;
 }
 
-export default function PageHero({ slides, autoPlayInterval = 5000 }: Props) {
+export default function PageHero({ slides = [], autoPlayInterval = 2000 }: Props) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // ✅ If slides not provided or empty, don't render hero
+  if (!slides || slides.length === 0) return null;
 
   useEffect(() => {
     if (!isAutoPlaying || slides.length <= 1) return;
@@ -27,7 +30,7 @@ export default function PageHero({ slides, autoPlayInterval = 5000 }: Props) {
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, slides.length, autoPlayInterval]);
+  }, [isAutoPlaying, slides, autoPlayInterval]); // ✅ safe dependency
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -39,19 +42,18 @@ export default function PageHero({ slides, autoPlayInterval = 5000 }: Props) {
     setIsAutoPlaying(false);
   };
 
-  if (slides.length === 0) return null;
-
   return (
     <section className="relative group -mx-[calc((100vw-100%)/2)] w-screen h-[70vh] overflow-hidden flex items-center justify-center text-center mb-12">
+
       {/* Slides */}
       <AnimatePresence>
         {slides.map((slide, index) =>
           index === currentSlide ? (
             <motion.div
               key={index}
-              initial={{ x: 200, opacity: 0 }} // enter from right
-              animate={{ x: 0, opacity: 1 }} // slide to center
-              exit={{ x: -200, opacity: 0 }} // exit to left
+              initial={{ x: 200, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -200, opacity: 0 }}
               transition={{ duration: 1, ease: "easeInOut" }}
               className="absolute inset-0 z-10"
             >
@@ -63,14 +65,13 @@ export default function PageHero({ slides, autoPlayInterval = 5000 }: Props) {
                 className="object-cover"
               />
 
-              {/* Overlay */}
               <div className="absolute inset-0 bg-black/30 z-10" />
 
-              {/* Content */}
               <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4">
                 <p className="text-[#F5F5F5] text-4xl md:text-6xl font-bold mb-4 drop-shadow-xl tracking-wide">
                   {slide.title}
                 </p>
+
                 {slide.subtitle && (
                   <p className="text-[#e6e6e6] text-xl md:text-2xl max-w-3xl drop-shadow-lg">
                     {slide.subtitle}
@@ -82,50 +83,28 @@ export default function PageHero({ slides, autoPlayInterval = 5000 }: Props) {
         )}
       </AnimatePresence>
 
-      {/* Navigation arrows — only on hover */}
+      {/* Navigation arrows */}
       {slides.length > 1 && (
         <>
-          {/* Prev Button */}
+          {/* Prev */}
           <button
             onClick={prevSlide}
-            className="opacity-0 group-hover:opacity-100 absolute left-6 z-30 border-2 border-white text-white p-2  hover:bg-white hover:text-black transition-all"
+            className="opacity-0 group-hover:opacity-100 absolute left-6 z-30 border-2 border-white text-white p-2 hover:bg-white hover:text-black transition-all"
             aria-label="Previous slide"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
-          {/* Next Button */}
+          {/* Next */}
           <button
             onClick={nextSlide}
-            className="opacity-0 group-hover:opacity-100 absolute right-6 z-30 border-2 border-white text-white p-2  hover:bg-white hover:text-black transition-all"
+            className="opacity-0 group-hover:opacity-100 absolute right-6 z-30 border-2 border-white text-white p-2 hover:bg-white hover:text-black transition-all"
             aria-label="Next slide"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </>
