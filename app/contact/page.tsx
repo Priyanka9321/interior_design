@@ -1,5 +1,4 @@
 import PageHero from "@/components/common/Banner";
-import ContactCTA from "@/components/common/ContactUs";
 import ContactUs from "@/components/contact/ContactUs";
 
 export const metadata = {
@@ -42,7 +41,7 @@ export default function ContactPage() {
       />
 
       <ContactUs />
-      <ContactCTA />
+
     </main>
   );
 }

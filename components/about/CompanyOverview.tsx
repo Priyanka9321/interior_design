@@ -1,9 +1,11 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 const AboutSection = () => {
+  const router = useRouter();
   const stats = [
     { value: "10", label: "years", sublabel: "experience" },
     { value: "2014", label: "established", sublabel: "year" },
@@ -84,7 +86,10 @@ const AboutSection = () => {
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
-            <button className="px-8 py-3 bg-[#E2C18C] text-[#14263E] font-['Spectral'] font-500 hover:bg-transparent hover:border hover:border-[#E2C18C] transition-all duration-300">
+            <button
+              onClick={() => router.push("/projects")} // <-- NAVIGATION ADDED
+              className="px-8 py-3 bg-[#E2C18C] text-[#14263E] font-['Spectral'] font-500 hover:bg-transparent hover:border hover:border-[#E2C18C] transition-all duration-300"
+            >
               Explore Our Projects
             </button>
           </motion.div>

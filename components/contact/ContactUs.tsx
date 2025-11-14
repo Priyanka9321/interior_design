@@ -45,13 +45,13 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground border-b border-accent">
+    <div className="min-h-screen bg-background text-foreground">
 
       {/* ✅ Hero Section */}
       <div className="relative h-[30vh] sm:h-[40vh] md:h-[45vh] lg:h-[50vh] flex items-center justify-center px-4">
         <div className="text-center">
           <p className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold text-accent leading-tight">
-            Let's Create Together
+            Lets Create Together
           </p>
           <p className="text-base sm:text-lg md:text-xl text-foreground/70 font-medium mt-4 max-w-6xl mx-auto">
             Transform your space into a masterpiece of refined elegance
