@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   DollarSign,
   Clock,
@@ -11,7 +11,13 @@ import {
   Users,
 } from "lucide-react";
 
-const items = [
+interface ItemType {
+  icon: React.ElementType;
+  title: string;
+  desc: string;
+}
+
+const items: ItemType[] = [
   {
     icon: DollarSign,
     title: "COST & TIME",
@@ -22,21 +28,16 @@ const items = [
     title: "FLEXIBILITY",
     desc: "35 Architects, Engineers & Designers",
   },
-
-  // ✅ UPDATED POINT 1
   {
     icon: Cpu,
     title: "PURPOSE-BUILT FACILITY",
     desc: "Dedicated design and production setup.",
   },
-
-  // ✅ UPDATED POINT 2
   {
     icon: BadgeCheck,
     title: "GLOBAL QUALITY",
     desc: "International quality compliance & precision output.",
   },
-
   {
     icon: Briefcase,
     title: "EXPERIENCE",
@@ -54,52 +55,68 @@ const items = [
   },
 ];
 
+// ⭐ Scroll-trigger animation
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] }, // smooth animation
+  },
+};
+
 export default function WhyChooseUs() {
   return (
     <section className="py-24 bg-background">
-      <div className="text-center mb-20">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-heading font-bold tracking-wide"
-        >
+      {/* TITLE - scroll trigger */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }} 
+        className="text-center mb-20"
+      >
+        <motion.h2 variants={cardVariants} className="text-4xl font-heading font-bold">
           Why <span className="text-accent">Naval Srijan?</span>
         </motion.h2>
-      </div>
+      </motion.div>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
+      {/* GRID ITEMS - scroll trigger */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}  
+        className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16"
+      >
         {items.map((item, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.85 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: index * 0.08 }}
-            className="flex flex-col items-center text-center"
-          >
-            <div
-              className="
-                w-28 h-28
-                rounded-full 
-                border-4 border-accent
-                flex items-center justify-center
-                hover:scale-110 
-                hover:shadow-[0_0_25px_var(--accent)]
-                transition-all duration-300
-              "
+          <motion.div key={index} variants={cardVariants} className="flex flex-col items-center text-center">
+            <motion.div
+              whileHover={{
+                scale: 1.12,
+                boxShadow: "0px 0px 25px var(--accent)",
+              }}
+              transition={{ duration: 0.3 }}
+              className="w-28 h-28 rounded-full border-4 border-accent flex items-center justify-center"
             >
               <item.icon size={48} className="text-accent" />
-            </div>
+            </motion.div>
 
-            <h3 className="mt-6 text-xl font-heading text-foreground">
-              {item.title}
-            </h3>
-            <p className="mt-2 text-sm text-foreground/70 font-body max-w-[220px] leading-relaxed">
+            <h3 className="mt-6 text-xl font-heading text-foreground">{item.title}</h3>
+            <p className="mt-2 text-sm text-foreground/70 max-w-[220px] leading-relaxed">
               {item.desc}
             </p>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
