@@ -13,16 +13,16 @@ const services = [
     icon: Building2,
   },
   {
-    title: "Architecture",
-    description:
-      "Our architectural designs combine functionality and aesthetics, creating innovative and sustainable spaces that reflect your unique style and needs.",
-    icon: PenTool,
-  },
-  {
     title: "Interior",
     description:
       "We specialize in crafting elegant and functional interiors, blending creativity and practicality to enhance your living and working spaces with stunning designs.",
     icon: Home,
+  },
+  {
+    title: "Architecture",
+    description:
+      "Our architectural designs combine functionality and aesthetics, creating innovative and sustainable spaces that reflect your unique style and needs.",
+    icon: PenTool,
   },
 ];
 

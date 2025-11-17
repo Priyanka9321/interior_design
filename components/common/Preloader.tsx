@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import Image from "next/image";
 
 interface PreloaderProps {
   onComplete?: () => void;
@@ -55,15 +56,28 @@ const NavalSrijanPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     },
   };
 
-  const circleVariants: Variants = {
-    hidden: { scale: 0.3, rotate: -180 },
+  const logoContainerVariants: Variants = {
+    hidden: { scale: 0, rotate: -180 },
     visible: {
       scale: 1,
       rotate: 0,
       transition: {
-        delay: 0.5,
-        duration: 1.4,
+        delay: 0.3,
+        duration: 1.2,
         ease: [0.25, 0.1, 0.25, 1],
+      },
+    },
+  };
+
+  const borderVariants: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: {
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 1.5,
+        ease: "easeInOut",
       },
     },
   };
@@ -98,95 +112,126 @@ const NavalSrijanPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
             overflow: "hidden",
           }}
         >
-          {/* ======= RESPONSIVE CIRCLES ======= */}
+          {/* DECORATIVE SQUARE FRAMES */}
           <motion.div
-            variants={circleVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
+            animate={{ opacity: 1, scale: 1, rotate: 45 }}
+            transition={{
+              delay: 0.2,
+              duration: 1.2,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
             style={{
               position: "absolute",
-              width: "55vw",
-              height: "55vw",
-              maxWidth: "600px",
-              maxHeight: "600px",
-              borderRadius: "50%",
-              border: "1px solid rgba(226, 193, 140, 0.15)",
+              width: "50vw",
+              height: "50vw",
+              maxWidth: "500px",
+              maxHeight: "500px",
+              border: "1px solid rgba(226, 193, 140, 0.12)",
               top: "50%",
               left: "50%",
-              transform: "translate(-50%, -50%)",
+              transform: "translate(-50%, -50%) rotate(45deg)",
             }}
           />
 
           <motion.div
-            variants={circleVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
+            animate={{ opacity: 1, scale: 1, rotate: 45 }}
+            transition={{
+              delay: 0.4,
+              duration: 1.2,
+              ease: [0.25, 0.1, 0.25, 1],
+            }}
             style={{
               position: "absolute",
-              width: "40vw",
-              height: "40vw",
-              maxWidth: "450px",
-              maxHeight: "450px",
-              borderRadius: "50%",
-              border: "1px solid rgba(226, 193, 140, 0.25)",
+              width: "35vw",
+              height: "35vw",
+              maxWidth: "350px",
+              maxHeight: "350px",
+              border: "1px solid rgba(226, 193, 140, 0.2)",
               top: "50%",
               left: "50%",
-              transform: "translate(-50%, -50%)",
+              transform: "translate(-50%, -50%) rotate(45deg)",
             }}
           />
 
-          <motion.div
-            variants={circleVariants}
-            initial="hidden"
-            animate="visible"
-            style={{
-              position: "absolute",
-              width: "28vw",
-              height: "28vw",
-              maxWidth: "300px",
-              maxHeight: "300px",
-              borderRadius: "50%",
-              border: "1px solid rgba(226, 193, 140, 0.35)",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-
-          {/* ======= DIAMOND ======= */}
-          <div style={{ position: "relative", marginBottom: "50px" }}>
-            <motion.div
-              initial={{ rotate: 0, scale: 0 }}
-              animate={{ rotate: 45, scale: 1 }}
-              transition={{ duration: 1 }}
+          {/* MAIN CONTENT */}
+          <div style={{ position: "relative", textAlign: "center" }}>
+            {/* SQUARE LOGO WITH ANIMATED BORDER */}
+            <div
               style={{
-                width: "15vw",
-                height: "15vw",
-                maxWidth: "80px",
-                maxHeight: "80px",
-                border: "2px solid #E2C18C",
                 position: "relative",
-                margin: "0 auto",
-                marginBottom: "25px",
+                display: "inline-block",
+                marginBottom: "50px",
               }}
             >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
+              {/* SVG ANIMATED BORDER */}
+              <svg
+                width="160"
+                height="160"
+                viewBox="0 0 160 160"
                 style={{
                   position: "absolute",
-                  width: "7vw",
-                  height: "7vw",
-                  maxWidth: "40px",
-                  maxHeight: "40px",
-                  backgroundColor: "#E2C18C",
                   top: "50%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
+                  overflow: "visible",
                 }}
-              />
-            </motion.div>
+              >
+                <motion.rect
+                  x="5"
+                  y="5"
+                  width="150"
+                  height="150"
+                  fill="none"
+                  stroke="#E2C18C"
+                  strokeWidth="1"
+                  variants={borderVariants}
+                  initial="hidden"
+                  animate="visible"
+                />
+                <motion.rect
+                  x="12"
+                  y="12"
+                  width="136"
+                  height="136"
+                  fill="none"
+                  stroke="rgba(226, 193, 140, 0.4)"
+                  strokeWidth="1"
+                  variants={borderVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.7, duration: 1.5 }}
+                />
+              </svg>
+
+              {/* LOGO */}
+              <motion.div
+                variants={logoContainerVariants}
+                initial="hidden"
+                animate="visible"
+                style={{
+                  width: "clamp(100px, 20vw, 130px)",
+                  height: "clamp(100px, 20vw, 130px)",
+                  backgroundColor: "#fff",
+                  padding: "10px",
+                  position: "relative",
+                  zIndex: 1,
+                }}
+              >
+                <Image
+                  src="/Logo.jpeg"
+                  alt="Naval Srijan Logo"
+                  width={130} // required
+                  height={130} // required
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              </motion.div>
+            </div>
 
             {/* NAME */}
             <div
@@ -195,6 +240,7 @@ const NavalSrijanPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                 justifyContent: "center",
                 gap: "6px",
                 perspective: "1000px",
+                marginBottom: "25px",
               }}
             >
               {letters.map((letter, i) => (
@@ -206,7 +252,7 @@ const NavalSrijanPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                   animate="visible"
                   style={{
                     display: "inline-block",
-                    fontSize: "clamp(22px, 6vw, 48px)",
+                    fontSize: "clamp(20px, 5vw, 42px)",
                     fontWeight: "300",
                     letterSpacing: "4px",
                     color: "#14263E",
@@ -218,7 +264,7 @@ const NavalSrijanPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
               ))}
             </div>
 
-            {/* LINE */}
+            {/* DECORATIVE LINE */}
             <motion.div
               variants={lineVariants}
               initial="hidden"
@@ -226,72 +272,70 @@ const NavalSrijanPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
               style={{
                 height: "1px",
                 backgroundColor: "#E2C18C",
-                marginTop: "20px",
-                width: "40vw",
-                maxWidth: "200px",
-                margin: "25px auto 0",
+                width: "clamp(150px, 35vw, 220px)",
+                margin: "0 auto 30px",
                 transformOrigin: "center",
               }}
             />
-          </div>
 
-          {/* PROGRESS BAR */}
-          <div
-            style={{
-              width: "60vw",
-              maxWidth: "300px",
-              height: "2px",
-              backgroundColor: "rgba(226, 193, 140, 0.2)",
-              borderRadius: "2px",
-              overflow: "hidden",
-            }}
-          >
+            {/* SUBTITLE */}
             <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.35, ease: "linear" }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.3, duration: 0.8 }}
               style={{
-                height: "100%",
-                backgroundColor: "#E2C18C",
-                borderRadius: "2px",
+                fontSize: "clamp(10px, 2.5vw, 12px)",
+                fontWeight: "400",
+                color: "rgba(20, 38, 62, 0.6)",
+                letterSpacing: "3px",
+                textTransform: "uppercase",
+                fontFamily: "sans-serif",
+                marginBottom: "40px",
               }}
-            />
+            >
+              Interior Design Studio
+            </motion.div>
+
+            {/* PROGRESS BAR */}
+            <div
+              style={{
+                width: "clamp(200px, 50vw, 280px)",
+                height: "2px",
+                backgroundColor: "rgba(226, 193, 140, 0.2)",
+                borderRadius: "2px",
+                overflow: "hidden",
+                margin: "0 auto",
+              }}
+            >
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.35, ease: "linear" }}
+                style={{
+                  height: "100%",
+                  backgroundColor: "#E2C18C",
+                  borderRadius: "2px",
+                }}
+              />
+            </div>
+
+            {/* PERCENTAGE */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              style={{
+                marginTop: "15px",
+                fontSize: "clamp(11px, 2.5vw, 13px)",
+                fontWeight: "300",
+                color: "#14263E",
+                letterSpacing: "2px",
+                fontFamily: "sans-serif",
+              }}
+            >
+              {Math.floor(progress)}%
+            </motion.div>
           </div>
-
-          {/* PERCENTAGE */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            style={{
-              marginTop: "15px",
-              fontSize: "clamp(12px, 3vw, 14px)",
-              fontWeight: "300",
-              color: "#14263E",
-              letterSpacing: "2px",
-              fontFamily: "sans-serif",
-            }}
-          >
-            {Math.floor(progress)}%
-          </motion.div>
-
-          {/* SUBTITLE */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.8 }}
-            style={{
-              marginTop: "25px",
-              fontSize: "clamp(10px, 2.5vw, 12px)",
-              fontWeight: "400",
-              color: "rgba(20, 38, 62, 0.6)",
-              letterSpacing: "3px",
-              textTransform: "uppercase",
-              fontFamily: "sans-serif",
-            }}
-          >
-            Interior Design Studio
-          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

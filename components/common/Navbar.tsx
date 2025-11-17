@@ -1,48 +1,63 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Change background on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuItems = ["Home", "About", "Services", "Projects", "Contact"];
+  const leftMenu = ["Home", "About"];
+  const rightMenu = ["Services", "Projects", "Contact"];
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 bg-[var(--navbar-bg)] transition-all duration-500 ${
+      className={`fixed top-0 left-0 w-full z-50 bg-white transition-all duration-500 ${
         scrolled ? "shadow-[0_2px_4px_rgba(0,0,0,0.08)]" : "shadow-none"
       }`}
     >
-      <nav className="flex justify-between items-center px-4 sm:px-6 lg:px-18 py-4 transition-all duration-300">
-        {/* Logo */}
-        <div className="relative w-[52px] h-[52px]">
-          <Image
-            src="/Logo.jpeg"
-            alt="Logo"
-            fill
-            className="object-contain cursor-pointer"
-            priority
-          />
-        </div>
+      <nav className="relative flex justify-between items-center px-4 sm:px-6 lg:px-12 py-4 md:py-2 transition-all duration-300">
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-10">
-          {menuItems.map((item) => (
+        {/* LEFT MENU - Desktop */}
+        <div className="hidden md:flex items-center gap-3 flex-1 justify-end pr-8">
+          {leftMenu.map((item) => (
             <Link
               key={item}
               href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className="relative font-body text-[17px] text-[var(--foreground)] hover:text-[var(--accent)] transition-all duration-300"
+              className="text-[17px] px-5 py-2 hover:text-blue-600 transition-all"
+            >
+              {item}
+            </Link>
+          ))}
+        </div>
+
+        {/* LOGO */}
+        <div className="relative px-2 md:px-4">
+          <div className="relative w-[55px] h-[55px] md:w-[85px] md:h-[85px] z-50">
+            <Image
+              src="/NSLogo.svg"
+              alt="Logo"
+              fill
+              sizes="82px"
+              className="object-contain cursor-pointer"
+            />
+          </div>
+        </div>
+
+        {/* RIGHT MENU - Desktop */}
+        <div className="hidden md:flex items-center gap-3 flex-1 justify-start pl-8">
+          {rightMenu.map((item) => (
+            <Link
+              key={item}
+              href={`/${item.toLowerCase()}`}
+              className="text-[17px] px-5 py-2 hover:text-blue-600 transition-all"
             >
               {item}
             </Link>
@@ -50,26 +65,23 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Icon */}
-        <div className="md:hidden flex items-center">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-            className="text-[var(--foreground)]"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden ml-auto text-gray-900"
+        >
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </nav>
 
-      {/* Mobile Dropdown */}
+      {/* MOBILE MENU */}
       {isOpen && (
-        <div className="md:hidden bg-[var(--navbar-bg)] shadow-lg absolute top-full left-0 w-full text-center py-6 space-y-4 transition-all duration-500">
-          {menuItems.map((item) => (
+        <div className="md:hidden bg-white shadow-lg w-full text-center py-4 space-y-3">
+          {[...leftMenu, ...rightMenu].map((item) => (
             <Link
               key={item}
               href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
               onClick={() => setIsOpen(false)}
-              className="block font-body text-lg text-[var(--foreground)] hover:text-[var(--accent)] transition-colors"
+              className="block text-[17px] py-2 hover:text-blue-600"
             >
               {item}
             </Link>

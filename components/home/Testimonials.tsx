@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Play, Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 interface Testimonial {
   id: number;
@@ -23,8 +24,8 @@ const testimonials: Testimonial[] = [
     role: "Homeowners",
     location: "Mumbai",
     text: "The transformation of our penthouse exceeded every expectation. Every corner tells a story.",
-    videoId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&q=80",
+    videoId: "0nDsyKgf5Lw", // <-- Your Shorts video ID
+    thumbnail: "https://img.youtube.com/vi/0nDsyKgf5Lw/maxresdefault.jpg",
     rating: 5,
     project: "Luxury Penthouse Redesign",
   },
@@ -34,8 +35,8 @@ const testimonials: Testimonial[] = [
     role: "CEO, Tech Innovations",
     location: "Bangalore",
     text: "They understood our vision for a modern workspace that inspires creativity.",
-    videoId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+    videoId: "dbCHBj_pCzE", // <-- Your Shorts video ID
+    thumbnail: "https://img.youtube.com/vi/dbCHBj_pCzE/maxresdefault.jpg",
     rating: 5,
     project: "Corporate Office Transformation",
   },
@@ -45,8 +46,8 @@ const testimonials: Testimonial[] = [
     role: "Hotel Owner",
     location: "Jaipur",
     text: "Heritage design + modern luxury — guests can't stop appreciating it.",
-    videoId: "dQw4w9WgXcQ",
-    thumbnail: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    videoId: "0nDsyKgf5Lw", // (Use any real video ID you want)
+    thumbnail: "https://img.youtube.com/vi/0nDsyKgf5Lw/maxresdefault.jpg",
     rating: 5,
     project: "Heritage Hotel Restoration",
   },
@@ -62,7 +63,9 @@ export default function TestimonialsSection() {
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
     setActiveVideo(null);
   };
 
@@ -71,7 +74,6 @@ export default function TestimonialsSection() {
   return (
     <section className="bg-[var(--background)] py-24 px-6 relative overflow-hidden border-b border-accent">
       <div className="max-w-7xl mx-auto relative">
-
         {/* Header */}
         <div className="text-center mb-20">
           <p className="text-[var(--accent)] font-body text-sm tracking-wider uppercase mb-2">
@@ -84,7 +86,6 @@ export default function TestimonialsSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-
           {/* ✅ VIDEO BLOCK */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -93,35 +94,41 @@ export default function TestimonialsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 120 }}
               transition={{ duration: 0.7 }}
-              className="relative aspect-video max-w-[85%] mx-auto overflow-hidden"
+              className="relative w-full max-w-[600px] mx-auto overflow-hidden"
             >
-              {activeVideo === currentTestimonial.id ? (
-                <iframe
-                  className="w-full h-full"
-                  src={`https://www.youtube.com/embed/${currentTestimonial.videoId}?autoplay=1`}
-                  title="Client Testimonial"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              ) : (
-                <button
-                  onClick={() => setActiveVideo(currentTestimonial.id)}
-                  className="relative w-full h-full"
-                >
-                  <img
-                    src={currentTestimonial.thumbnail}
-                    alt={currentTestimonial.project}
-                    className="w-full h-full object-cover"
+              <div className="relative w-full pt-[56.25%]">
+                {/* 16:9 fixed aspect ratio */}
+                {activeVideo === currentTestimonial.id ? (
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${currentTestimonial.videoId}?autoplay=1`}
+                    allowFullScreen
                   />
+                ) : (
+                  <button
+                    onClick={() => setActiveVideo(currentTestimonial.id)}
+                    className="absolute top-0 left-0 w-full h-full"
+                  >
+                    <Image
+                      src={currentTestimonial.thumbnail}
+                      alt={currentTestimonial.project}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 600px"
+                    />
 
-                  {/* Just play icon, no bg overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 flex items-center justify-center rounded-full bg-white">
-                      <Play className="w-7 h-7 text-black" fill="currentColor" />
+                    {/* Play Icon */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-16 h-16 flex items-center justify-center rounded-full bg-white">
+                        <Play
+                          className="w-7 h-7 text-black"
+                          fill="currentColor"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </button>
-              )}
+                  </button>
+                )}
+              </div>
             </motion.div>
           </AnimatePresence>
 
@@ -143,12 +150,17 @@ export default function TestimonialsSection() {
 
               <div className="flex gap-1">
                 {[...Array(currentTestimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[var(--accent)] text-[var(--accent)]" />
+                  <Star
+                    key={i}
+                    className="w-5 h-5 fill-[var(--accent)] text-[var(--accent)]"
+                  />
                 ))}
               </div>
 
               <div>
-                <h4 className="text-lg sm:text-xl font-heading">{currentTestimonial.name}</h4>
+                <h4 className="text-lg sm:text-xl font-heading">
+                  {currentTestimonial.name}
+                </h4>
                 <p className="text-[var(--foreground)]/70 font-[var(--font-body)] text-sm tracking-wide">
                   {currentTestimonial.role} • {currentTestimonial.location}
                 </p>
@@ -171,7 +183,6 @@ export default function TestimonialsSection() {
               </div>
             </motion.div>
           </AnimatePresence>
-
         </div>
       </div>
     </section>

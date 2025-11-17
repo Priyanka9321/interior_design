@@ -54,7 +54,7 @@ export default function PageHero({ slides = [], autoPlayInterval = 2000 }: Props
               initial={{ x: 200, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -200, opacity: 0 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
               className="absolute inset-0 z-10"
             >
               <Image

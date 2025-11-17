@@ -1,55 +1,47 @@
 "use client";
 
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import {
-  DollarSign,
-  Clock,
-  Cpu,
-  BadgeCheck,
-  Briefcase,
-  Repeat,
-  Users,
-} from "lucide-react";
 
 interface ItemType {
-  icon: React.ElementType;
+  icon: string; // ⬅ changed to string
   title: string;
   desc: string;
 }
 
 const items: ItemType[] = [
   {
-    icon: DollarSign,
+    icon: "/images/home/icons/cost&time.svg",
     title: "COST & TIME",
     desc: "35-40% More Economical Than In-house Production",
   },
   {
-    icon: Clock,
+    icon: "/images/home/icons/flexibility.svg",
     title: "FLEXIBILITY",
     desc: "35 Architects, Engineers & Designers",
   },
   {
-    icon: Cpu,
+    icon: "/images/home/icons/infrastructure.svg",
     title: "PURPOSE-BUILT FACILITY",
     desc: "Dedicated design and production setup.",
   },
   {
-    icon: BadgeCheck,
+    icon: "/images/home/icons/standards.svg",
     title: "GLOBAL QUALITY",
     desc: "International quality compliance & precision output.",
   },
   {
-    icon: Briefcase,
+    icon: "/images/home/icons/expert.svg",
     title: "EXPERIENCE",
     desc: "Over 35 Large Scale Projects Delivered",
   },
   {
-    icon: Users,
+    icon: "/images/home/icons/efficacy.svg",
     title: "PROCESS EXCELLENCE",
     desc: "Unmatched Business Value",
   },
   {
-    icon: Repeat,
+    icon: "/images/home/icons/employee.svg",
     title: "REPEAT CLIENTELE",
     desc: "Near-100% Client Retention Rate Since Inception",
   },
@@ -70,48 +62,76 @@ const cardVariants: Variants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] }, // smooth animation
+    transition: { duration: 0.6, ease: [0.25, 1, 0.5, 1] },
   },
 };
 
 export default function WhyChooseUs() {
   return (
     <section className="py-24 bg-background">
-      {/* TITLE - scroll trigger */}
+      {/* TITLE */}
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }} 
+        viewport={{ once: true, amount: 0.3 }}
         className="text-center mb-20"
       >
-        <motion.h2 variants={cardVariants} className="text-4xl font-heading font-bold">
+        <motion.h2
+          variants={cardVariants}
+          className="text-4xl font-heading font-bold"
+        >
           Why <span className="text-accent">Naval Srijan?</span>
         </motion.h2>
       </motion.div>
 
-      {/* GRID ITEMS - scroll trigger */}
+      {/* GRID ITEMS */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}  
-        className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16"
+        viewport={{ once: true, amount: 0.3 }}
+        className="
+      max-w-6xl 
+      mx-auto 
+      flex 
+      flex-wrap
+      justify-center 
+      gap-10
+  "
       >
         {items.map((item, index) => (
-          <motion.div key={index} variants={cardVariants} className="flex flex-col items-center text-center">
+          <motion.div
+            key={index}
+            variants={cardVariants}
+            className="flex flex-col items-center text-center"
+          >
             <motion.div
               whileHover={{
-                scale: 1.12,
+                scale: 1.1,
                 boxShadow: "0px 0px 25px var(--accent)",
               }}
               transition={{ duration: 0.3 }}
-              className="w-28 h-28 rounded-full border-4 border-accent flex items-center justify-center"
+              className="
+          w-36 h-36              // ⬅ circle thoda bada
+          rounded-full 
+          border-4 border-accent 
+          flex items-center justify-center
+        "
             >
-              <item.icon size={48} className="text-accent" />
+              <Image
+                src={item.icon}
+                alt={item.title}
+                width={85} // ⬅ icon thoda bada
+                height={85}
+                className="text-accent"
+              />
             </motion.div>
 
-            <h3 className="mt-6 text-xl font-heading text-foreground">{item.title}</h3>
-            <p className="mt-2 text-sm text-foreground/70 max-w-[220px] leading-relaxed">
+            <h3 className="mt-5 text-lg font-heading text-foreground font-semibold">
+              {item.title}
+            </h3>
+
+            <p className="mt-1.5 text-sm text-foreground/70 max-w-[220px] leading-relaxed">
               {item.desc}
             </p>
           </motion.div>
