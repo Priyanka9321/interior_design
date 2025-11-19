@@ -17,6 +17,8 @@ const Navbar = () => {
   const leftMenu = ["Home", "About"];
   const rightMenu = ["Services", "Projects", "Contact"];
 
+  const allMenuItems = [...leftMenu, ...rightMenu];
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 bg-white transition-all duration-500 ${
@@ -25,20 +27,7 @@ const Navbar = () => {
     >
       <nav className="relative flex justify-between items-center px-4 sm:px-6 lg:px-12 py-4 md:py-2 transition-all duration-300">
 
-        {/* LEFT MENU - Desktop */}
-        <div className="hidden md:flex items-center gap-3 flex-1 justify-end pr-8">
-          {leftMenu.map((item) => (
-            <Link
-              key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className="text-[17px] px-5 py-2 hover:text-blue-600 transition-all"
-            >
-              {item}
-            </Link>
-          ))}
-        </div>
-
-        {/* LOGO */}
+        {/* LOGO - LEFT */}
         <div className="relative px-2 md:px-4">
           <div className="relative w-[55px] h-[55px] md:w-[85px] md:h-[85px] z-50">
             <Image
@@ -51,20 +40,20 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* RIGHT MENU - Desktop */}
-        <div className="hidden md:flex items-center gap-3 flex-1 justify-start pl-8">
-          {rightMenu.map((item) => (
+        {/* DESKTOP MENU - RIGHT */}
+        <div className="hidden md:flex items-center gap-6">
+          {allMenuItems.map((item) => (
             <Link
               key={item}
-              href={`/${item.toLowerCase()}`}
-              className="text-[17px] px-5 py-2 hover:text-blue-600 transition-all"
+              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+              className="text-[17px] px-3 py-2 hover:text-blue-600 transition-all"
             >
               {item}
             </Link>
           ))}
         </div>
 
-        {/* Mobile Menu Icon */}
+        {/* MOBILE MENU ICON */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden ml-auto text-gray-900"
@@ -76,7 +65,7 @@ const Navbar = () => {
       {/* MOBILE MENU */}
       {isOpen && (
         <div className="md:hidden bg-white shadow-lg w-full text-center py-4 space-y-3">
-          {[...leftMenu, ...rightMenu].map((item) => (
+          {allMenuItems.map((item) => (
             <Link
               key={item}
               href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
