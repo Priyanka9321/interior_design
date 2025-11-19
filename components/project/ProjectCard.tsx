@@ -9,9 +9,15 @@ interface Project {
   title: string;
   category: string;
   image: string;
+  description: string;
 }
 
-const categories = ["Commercial", "Residential", "Home", "Renovation", "Modular"];
+const categories = [
+  "Commercial",
+  "Residential",
+  "Renovation",
+  "Modular",
+];
 
 const projects: Project[] = [
   {
@@ -19,48 +25,55 @@ const projects: Project[] = [
     title: "Office Space – Modern Interior",
     category: "Commercial",
     image: "https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg",
+    description:
+      "A modern commercial office space designed with premium materials and functional layout.",
   },
   {
     id: 2,
     title: "Showroom – Luxury Furniture",
     category: "Commercial",
     image: "https://images.pexels.com/photos/245208/pexels-photo-245208.jpeg",
+    description:
+      "A stunning luxury showroom featuring contemporary furniture and aesthetic lighting.",
   },
-  {
-    id: 3,
-    title: "Bedroom Design",
-    category: "Home",
-    image: "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg",
-  },
+ 
   {
     id: 4,
     title: "Kitchen Modular Setup",
     category: "Modular",
     image: "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg",
+    description:
+      "A complete modular kitchen setup with premium fittings and ergonomic layout.",
   },
   {
     id: 5,
     title: "Flat Renovation",
     category: "Renovation",
     image: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg",
+    description:
+      "A full flat renovation with improved space planning and contemporary finishes.",
   },
   {
     id: 6,
     title: "Wardrobe Modern Design",
     category: "Modular",
     image: "https://images.pexels.com/photos/1457847/pexels-photo-1457847.jpeg",
+    description:
+      "Elegant modular wardrobe designed for maximum storage and modern aesthetics.",
   },
   {
     id: 7,
     title: "Living Room Interior",
     category: "Home",
     image: "https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg",
+    description:
+      "A premium living room interior featuring warm tones and stylish décor elements.",
   },
 ];
 
 export default function ProjectGallery() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<Project | null>(null);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -131,7 +144,7 @@ export default function ProjectGallery() {
             <div
               key={proj.id}
               className="group cursor-pointer"
-              onClick={() => setPreview(proj.image)}
+              onClick={() => setPreview(proj)}
               onMouseEnter={() => setHoveredId(proj.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
@@ -176,8 +189,9 @@ export default function ProjectGallery() {
       {totalPages > 1 && (
         <div className="max-w-7xl mx-auto mt-16 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-sm text-[#14263E]/70">
-            Showing {indexOfFirstItem + 1}-{Math.min(indexOfLastItem, filtered.length)} of{" "}
-            {filtered.length} projects
+            Showing {indexOfFirstItem + 1}-
+            {Math.min(indexOfLastItem, filtered.length)} of {filtered.length}{" "}
+            projects
           </div>
 
           <div className="flex items-center gap-2">
@@ -196,7 +210,9 @@ export default function ProjectGallery() {
 
             {/* Next */}
             <button
-              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className={`p-2 border-[1.5px] border-[#14263E] transition-all ${
                 currentPage === totalPages
@@ -220,14 +236,31 @@ export default function ProjectGallery() {
             <X size={32} />
           </button>
 
-          <div className="w-full max-w-5xl">
-            <Image
-              src={preview}
-              alt="Preview"
-              width={1200}
-              height={900}
-              className="w-full h-auto shadow-2xl"
-            />
+          <div className="flex flex-col md:flex-row gap-6 p-6 ">
+            {/* LEFT — Image (Card Style, Tall & Narrow) */}
+            <div className="w-full md:w-[280px] h-[380px] relative overflow-hidden">
+              <Image
+                src={preview.image}
+                alt={preview.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* RIGHT — Details */}
+            <div className="flex-1 flex flex-col justify-center">
+              <h2 className="text-3xl font-serif !text-white font-semibold mb-3">
+                {preview.title}
+              </h2>
+
+              <p className="text-sm uppercase tracking-widest text-white/70 mb-4">
+                {preview.category}
+              </p>
+
+              <p className="text-white/90 leading-relaxed text-lg">
+                {preview.description}
+              </p>
+            </div>
           </div>
         </div>
       )}
