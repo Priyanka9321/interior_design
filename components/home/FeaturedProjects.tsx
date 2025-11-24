@@ -19,7 +19,7 @@ export default function FeaturedProjects() {
     {
       id: 1,
       title: "Minimalist Penthouse",
-      category: "Residential",
+      category: "hospitality",
       image:
         "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
       description:
@@ -28,7 +28,7 @@ export default function FeaturedProjects() {
     {
       id: 2,
       title: "Executive Boardroom",
-      category: "Commercial",
+      category: "commercial",
       image:
         "https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
       description:
@@ -37,7 +37,7 @@ export default function FeaturedProjects() {
     {
       id: 3,
       title: "Boutique Wellness Spa",
-      category: "Hospitality",
+      category: "residential",
       image:
         "https://images.pexels.com/photos/704555/pexels-photo-704555.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2",
       description:

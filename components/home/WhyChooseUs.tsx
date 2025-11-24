@@ -112,7 +112,7 @@ export default function WhyChooseUs() {
               }}
               transition={{ duration: 0.3 }}
               className="
-          w-36 h-36              // ⬅ circle thoda bada
+          w-32 h-32             
           rounded-full 
           border-4 border-accent 
           flex items-center justify-center

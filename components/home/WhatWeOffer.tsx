@@ -9,19 +9,19 @@ const services = [
   {
     title: "Construction",
     description:
-      "We deliver top-quality construction services, ensuring durability, precision, and timely project completion. Our expertise transforms your vision into reality with impeccable craftsmanship.",
+      "We deliver reliable and detail-driven construction services, ensuring durability, technical precision, and seamless project execution from foundation to finish.",
     icon: Building2,
   },
   {
     title: "Interior",
     description:
-      "We specialize in crafting elegant and functional interiors, blending creativity and practicality to enhance your living and working spaces with stunning designs.",
+      "We create interiors that blend elegance with intelligent functionality tailoring layouts, materials and design details to enhance the way you live and experience your space. Every element is curated with purpose, comfort and timeless aesthetics in mind.",
     icon: Home,
   },
   {
     title: "Architecture",
     description:
-      "Our architectural designs combine functionality and aesthetics, creating innovative and sustainable spaces that reflect your unique style and needs.",
+      "Our architectural solutions balance form, function and clarity—uniting thoughtful planning, refined aesthetics and practical efficiency. We craft spaces that are structurally sound, visually harmonious and uniquely aligned with your lifestyle, while maximising every square foot with purpose.",
     icon: PenTool,
   },
 ];
@@ -45,9 +45,10 @@ const headerVariants: Variants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1, ease: "easeOut" }, // <-- string easing (TypeScript-friendly)
+    transition: { duration: 1, ease: "easeOut" },
   },
 };
+
 export default function WhatWeOffer() {
   return (
     <section className="relative py-16 md:py-24 lg:py-32 bg-background overflow-hidden border-b border-accent">
@@ -72,10 +73,8 @@ export default function WhatWeOffer() {
           </h2>
 
           <p className="text-foreground text-lg font-body opacity-70 leading-relaxed">
-            We are extremely passionate about eco-friendly systems and
-            sustainable design. <br />
-            Every project reflects our commitment to creating beautiful,
-            responsible spaces.
+            We offer personalized, design-driven solutions that blend aesthetics, functionality and precision, <br />
+            ensuring every space is crafted with care and delivered with excellence.
           </p>
         </motion.div>
 
@@ -105,7 +104,10 @@ export default function WhatWeOffer() {
 
                     <div className="w-12 h-1 bg-accent mb-6 transition-all duration-500 group-hover:w-20" />
 
-                    <p className="text-foreground/70 leading-relaxed text-base md:text-lg font-body line-clamp-4 transition-all duration-300 group-hover:line-clamp-none">
+                    {/* ✅ UPDATED LINE */}
+                    <p className="text-foreground/70 leading-relaxed text-base md:text-lg font-body 
+                    line-clamp-none md:line-clamp-4 md:group-hover:line-clamp-none 
+                    transition-all duration-300">
                       {service.description}
                     </p>
 
