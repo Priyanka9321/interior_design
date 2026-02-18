@@ -28,14 +28,10 @@ export default function HomePage() {
       <FeaturedProjects />
       <WhatWeOffer />
       <WhyChooseUs />
-      <TransformationShowcase
-        beforeImage={
-          "https://images.pexels.com/photos/6585599/pexels-photo-6585599.jpeg"
-        }
-        afterImage={
-          "https://images.pexels.com/photos/8146330/pexels-photo-8146330.jpeg"
-        }
-      />
+
+      {/* FIXED HERE — No Props */}
+      <TransformationShowcase />
+
       <Testimonials />
       <ContactCTA />
     </main>
