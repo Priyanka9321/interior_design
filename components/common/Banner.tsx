@@ -15,21 +15,20 @@ interface Props {
   autoPlayInterval?: number;
 }
 
-export default function PageHero({ slides = [], autoPlayInterval = 2000 }: Props) {
+export default function PageHero({ slides = [], autoPlayInterval = 3000 }: Props) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-
-  // ❌ no early return here!
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (!isAutoPlaying || slides.length <= 1) return;
+    if (!isAutoPlaying || slides.length <= 1 || isPaused) return;
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, slides, autoPlayInterval]);
+  }, [isAutoPlaying, slides, autoPlayInterval, isPaused]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -49,6 +48,8 @@ export default function PageHero({ slides = [], autoPlayInterval = 2000 }: Props
           w-screen 
           h-[45vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh]
           overflow-hidden flex items-center justify-center text-center mb-12"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
           <AnimatePresence>
             {slides.map((slide, index) =>

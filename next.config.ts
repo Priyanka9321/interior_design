@@ -28,6 +28,19 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com", 
       },
+      // Instagram CDN domains
+      {
+        protocol: "https",
+        hostname: "*.fbcdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "scontent.cdninstagram.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.cdninstagram.com",
+      },
     ],
   },
 };

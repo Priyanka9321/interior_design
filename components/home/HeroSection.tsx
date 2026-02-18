@@ -6,7 +6,7 @@ const HeroSection = () => {
       {/* 🎥 Background Video */}
       <video
         className="absolute top-0 left-0 w-screen h-full object-cover"
-        src="https://videos.pexels.com/video-files/3770033/3770033-hd_1920_1080_25fps.mp4"
+        src="https://videos.pexels.com/video-files/29466011/12684178_1920_1080_60fps.mp4"
         autoPlay
         loop
         muted
@@ -18,14 +18,21 @@ const HeroSection = () => {
 
       {/* ✨ Text on Video */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-       <p className="text-lg md:text-2xl text-accent mb-4">
-          Creative Interior Design
+
+        <p className="text-xl md:text-4xl text-accent mb-4 tracking-wide">
+          FROM PLOT TO PERFECTION
         </p>
-        <p className="font-heading text-3xl md:text-5xl font-semibold text-background tracking-widest">
-          Where Comfort Meets Elegance
+
+        <p className="font-heading text-lg md:text-2xl font-semibold text-background leading-snug">
+          We design, build and deliver with purpose
         </p>
-       
+
       </div>
+
+
+
+
+
     </section>
   );
 };

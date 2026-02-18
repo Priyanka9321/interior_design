@@ -1,20 +1,48 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import ReactBeforeSliderComponent from "react-before-after-slider-component";
 import "react-before-after-slider-component/dist/build.css";
 
-type Props = {
-  beforeImage: string;
-  afterImage: string;
-};
+// Slide data with different before/after images
+const slides = [
+  {
+    id: 1,
+    beforeImage: "https://images.pexels.com/photos/6585599/pexels-photo-6585599.jpeg",
+    afterImage: "https://images.pexels.com/photos/11018250/pexels-photo-11018250.jpeg",
+    title: "Modern Living Room"
+  },
+  {
+    id: 2,
+    beforeImage: "https://images.pexels.com/photos/7340583/pexels-photo-7340583.jpeg",
+    afterImage: "https://images.pexels.com/photos/5393438/pexels-photo-5393438.jpeg",
+    title: "Contemporary Kitchen"
+  },
+  {
+    id: 3,
+    beforeImage: "https://images.pexels.com/photos/5461565/pexels-photo-5461565.jpeg",
+    afterImage: "https://images.pexels.com/photos/15798784/pexels-photo-15798784.jpeg",
+    title: "Elegant Bedroom"
+  }
+];
 
-export default function TransformationShowcase({
-  beforeImage = "https://images.pexels.com/photos/6585599/pexels-photo-6585599.jpeg",
-  afterImage = "https://images.pexels.com/photos/20249656/pexels-photo-20249656.jpeg",
-}: Props) {
-  const firstImage = { imageUrl: beforeImage };
-  const secondImage = { imageUrl: afterImage };
+export default function TransformationShowcase() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const firstImage = { imageUrl: slides[currentSlide].beforeImage };
+  const secondImage = { imageUrl: slides[currentSlide].afterImage };
 
   return (
     <section className="bg-[var(--background)] py-20 px-6 md:px-12 border-y border-[var(--accent)] border-opacity-20">
@@ -28,12 +56,12 @@ export default function TransformationShowcase({
             A Seamless Experience
           </h2>
           <p className="text-[var(--foreground)]/80 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed font-[var(--font-body)]">
-            With Essajees Atelier, transforming your space is as smooth an
+            With Naval Design Process, transforming your space is as smooth an
             experience as sliding this bar.
           </p>
         </div>
 
-        {/* Before / After Slider */}
+        {/* Before / After Slider with Navigation */}
         <div className="flex justify-center">
           <div className="relative overflow-hidden shadow-lg w-full max-w-4xl group">
             {/* Labels */}
@@ -43,6 +71,48 @@ export default function TransformationShowcase({
             <span className="absolute top-4 right-4 z-20 bg-[var(--accent)]/90 text-[var(--foreground)] px-4 py-1 text-xs md:text-sm font-body uppercase tracking-wider">
               After
             </span>
+
+            {/* Previous Button */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-[var(--foreground)] p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 group-hover:opacity-100"
+              aria-label="Previous slide"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            {/* Next Button */}
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-[var(--foreground)] p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 group-hover:opacity-100"
+              aria-label="Next slide"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
 
             {/* Slider */}
             <div className="relative h-[250px] sm:h-[340px] md:h-[520px] w-full overflow-hidden">
@@ -126,7 +196,30 @@ export default function TransformationShowcase({
                 }
               `}</style>
             </div>
+
+            {/* Dots Navigation */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+              {slides.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  onClick={() => goToSlide(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === index
+                      ? "bg-[var(--accent)] w-8"
+                      : "bg-white/60 hover:bg-white/80"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
+        </div>
+
+        {/* Slide Counter */}
+        <div className="text-center mt-6">
+          <p className="text-[var(--foreground)]/60 text-sm font-body">
+            {currentSlide + 1} / {slides.length}
+          </p>
         </div>
 
         {/* Description */}

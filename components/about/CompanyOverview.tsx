@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 const AboutSection = () => {
   const router = useRouter();
   const stats = [
-    { value: "10", label: "years", sublabel: "experience" },
-    { value: "2014", label: "established", sublabel: "year" },
+    { value: "5", label: "years", sublabel: "experience" },
+    { value: "2021", label: "established", sublabel: "year" },
     { value: "35", label: "team", sublabel: "members" },
-    { value: "100", label: "projects", sublabel: "completed" },
+    { value: "80", label: "projects", sublabel: "completed" },
   ];
 
   // Animation variants

@@ -293,7 +293,7 @@ const NavalSrijanPreloader: React.FC<PreloaderProps> = ({ onComplete }) => {
                 marginBottom: "40px",
               }}
             >
-              Interior Design Studio
+              ARCHITECTURE • INTERIORS • CONSTRUCTION
             </motion.div>
 
             {/* PROGRESS BAR */}

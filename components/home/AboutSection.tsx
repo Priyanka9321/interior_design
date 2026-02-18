@@ -82,7 +82,7 @@ const AboutUsSection = () => {
             </motion.h1>
 
             <motion.p variants={fadeUp} className="text-lg opacity-80 font-body text-foreground">
-              Naval Srijan is a multidisciplinary design company offering end-to-end solutions across architecture, interiors, construction and turnkey projects. We take pride in our refined aesthetic, technical precision and attention to detail qualities that guide every stage of our work, from concept planning to final handover.
+              Naval Srijan is a multidisciplinary design firm offering integrated solutions in architecture, interiors, construction, and turnkey projects. With a focus on refined aesthetics, technical excellence, and seamless execution, we create spaces that are functional, timeless, and deeply personal — from concept to completion.
             </motion.p>
 
             <motion.div variants={fadeUp}>
