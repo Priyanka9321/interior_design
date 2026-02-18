@@ -1,612 +1,262 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValue,
-  useSpring,
-} from "framer-motion";
-import { useState, useRef, useEffect, FC } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
-/* ─────────────────────────────────────────
-   Brand Tokens (matching your site)
-───────────────────────────────────────── */
-const B = {
-  cream: "#F5F0E8",       // page background
-  creamDark: "#EDE6D6",   // slightly deeper cream for cards
-  creamBorder: "#DDD5C0", // card borders
-  gold: "#C4973A",        // primary gold (matching your icons/buttons)
-  goldLight: "#D4AF5A",   // lighter gold for gradients
-  goldPale: "#E8D5A0",    // very pale gold for backgrounds
-  text: "#2C2419",        // dark brown-black (your body text)
-  textMid: "#6B5B3E",     // mid warm brown (your subtext)
-  textLight: "#9C8A6E",   // lighter warm grey-brown
-  white: "#FFFFFF",
-};
-
-/* ─────────────────────────────────────────
-   Types
-───────────────────────────────────────── */
-interface Service {
-  title: string;
-  description: string;
-  image: string;
-  number: string;
-  tag: string;
-}
-
-interface ParticleProps {
-  x: number;
-  y: number;
-}
-
-interface ServiceCardProps {
-  service: Service;
-  index: number;
-}
-
-/* ─────────────────────────────────────────
-   Data
-───────────────────────────────────────── */
-const services: Service[] = [
+// Services Data with images
+const services = [
   {
     title: "Construction",
     description:
       "We deliver reliable and detail-driven construction services, ensuring durability, technical precision, and seamless project execution from foundation to finish.",
-    image:
-      "https://images.pexels.com/photos/8961025/pexels-photo-8961025.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=2",
+    image: "https://images.pexels.com/photos/8961025/pexels-photo-8961025.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=2",
     number: "01",
-    tag: "Build",
   },
   {
     title: "Interior",
     description:
       "We create interiors that blend elegance with intelligent functionality tailoring layouts, materials and design details to enhance the way you live and experience your space. Every element is curated with purpose, comfort and timeless aesthetics in mind.",
-    image:
-      "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=2",
+    image: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=2",
     number: "02",
-    tag: "Design",
   },
   {
     title: "Architecture",
     description:
-      "Our architectural solutions balance form, function and clarity—uniting thoughtful planning, refined aesthetics and practical efficiency. We craft spaces that are structurally sound, visually harmonious and uniquely aligned with your lifestyle.",
-    image:
-      "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=2",
+      "Our architectural solutions balance form, function and clarity—uniting thoughtful planning, refined aesthetics and practical efficiency. We craft spaces that are structurally sound, visually harmonious and uniquely aligned with your lifestyle, while maximising every square foot with purpose.",
+    image: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=2",
     number: "03",
-    tag: "Plan",
   },
 ];
 
-/* ─────────────────────────────────────────
-   Gold Particle (warm gold on cream)
-───────────────────────────────────────── */
-const Particle: FC<ParticleProps> = ({ x, y }) => {
-  const angle = Math.random() * Math.PI * 2;
-  const dist = 35 + Math.random() * 55;
-  return (
-    <motion.span
-      initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-      animate={{
-        x: Math.cos(angle) * dist,
-        y: Math.sin(angle) * dist,
-        opacity: 0,
-        scale: 0,
-      }}
-      transition={{ duration: 0.6 + Math.random() * 0.5, ease: "easeOut" }}
-      style={{
-        left: x, top: y,
-        background: B.gold,
-        position: "absolute",
-        width: 5, height: 5,
-        borderRadius: "50%",
-        pointerEvents: "none",
-        display: "block",
-        zIndex: 50,
-      }}
-    />
-  );
-};
-
-/* ─────────────────────────────────────────
-   Service Card
-───────────────────────────────────────── */
-const ServiceCard: FC<ServiceCardProps> = ({ service, index }) => {
-  const [hovered, setHovered] = useState<boolean>(false);
-  const [particles, setParticles] = useState<{ id: number; x: number; y: number }[]>([]);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const rotX = useMotionValue(0);
-  const rotY = useMotionValue(0);
-  const sRotX = useSpring(rotX, { stiffness: 180, damping: 22 });
-  const sRotY = useSpring(rotY, { stiffness: 180, damping: 22 });
-
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const r = cardRef.current.getBoundingClientRect();
-    rotY.set(((e.clientX - r.left - r.width / 2) / r.width) * 8);
-    rotX.set(-((e.clientY - r.top - r.height / 2) / r.height) * 8);
-  };
-
-  const onMouseLeave = () => {
-    rotX.set(0); rotY.set(0); setHovered(false);
-  };
-
-  const onMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    setHovered(true);
-    const r = cardRef.current.getBoundingClientRect();
-    setParticles(
-      Array.from({ length: 8 }, (_, i) => ({
-        id: Date.now() + i,
-        x: e.clientX - r.left,
-        y: e.clientY - r.top,
-      }))
-    );
-    setTimeout(() => setParticles([]), 1200);
-  };
+export default function WhatWeOfferStylish() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.7, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
-      style={{
-        rotateX: sRotX, rotateY: sRotY,
-        transformStyle: "preserve-3d", perspective: 1000,
-        position: "relative", display: "flex", flexDirection: "column",
-      }}
-      onMouseMove={onMouseMove}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      {/* Soft gold shadow on hover */}
-      <motion.div
-        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 8 : 0 }}
-        transition={{ duration: 0.4 }}
-        style={{
-          position: "absolute", inset: 0, borderRadius: 16, zIndex: 0,
-          boxShadow: `0 20px 60px rgba(196,151,58,0.25)`,
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Card */}
-      <div style={{
-        position: "relative", flex: 1, display: "flex", flexDirection: "column",
-        background: B.white,
-        border: `1px solid ${B.creamBorder}`,
-        borderRadius: 16, overflow: "hidden", zIndex: 1,
-        boxShadow: "0 2px 16px rgba(44,36,25,0.06)",
-        transition: "border-color 0.3s",
-        borderColor: hovered ? B.gold : B.creamBorder,
-      }}>
-
-        {/* Gold top border sweep */}
-        <motion.div
-          animate={{ x: hovered ? "110%" : "-110%" }}
-          transition={{ duration: 0.75, ease: "easeInOut" }}
-          style={{
-            position: "absolute", top: 0, left: 0,
-            width: "100%", height: 2, zIndex: 10,
-            background: `linear-gradient(90deg, transparent, ${B.gold}, transparent)`,
-          }}
-        />
-
-        {/* Image */}
-        <div style={{ position: "relative", height: 210, overflow: "hidden", flexShrink: 0 }}>
-          <motion.div
-            animate={{ scale: hovered ? 1.06 : 1 }}
-            transition={{ duration: 0.7 }}
-            style={{ width: "100%", height: "100%", position: "relative" }}
-          >
-            <Image src={service.image} alt={service.title} fill style={{ objectFit: "cover" }} />
-          </motion.div>
-
-          {/* Warm cream gradient at bottom */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(to bottom, rgba(255,255,255,0) 40%, rgba(255,255,255,0.5) 75%, #ffffff 100%)",
-          }} />
-
-          {/* Number badge — top left */}
-          <div style={{
-            position: "absolute", top: 14, left: 14, zIndex: 20,
-            padding: "4px 10px",
-            background: "rgba(255,255,255,0.92)",
-            border: `1px solid ${B.gold}`,
-            borderRadius: 20,
-            display: "flex", alignItems: "center", gap: 6,
-            backdropFilter: "blur(4px)",
-          }}>
-            <span style={{
-              fontFamily: "monospace", fontSize: 10,
-              color: B.gold, fontWeight: 700, letterSpacing: "0.15em",
-            }}>
-              {service.number}
-            </span>
-            <span style={{
-              width: 1, height: 10,
-              background: B.goldPale, display: "block",
-            }} />
-            <span style={{
-              fontFamily: "monospace", fontSize: 9,
-              color: B.textLight, letterSpacing: "0.1em", textTransform: "uppercase",
-            }}>
-              {service.tag}
-            </span>
-          </div>
-
-          {/* Shimmer */}
-          <motion.div
-            animate={{ x: hovered ? "280%" : "-80%", opacity: hovered ? 1 : 0 }}
-            transition={{ duration: 0.6 }}
-            style={{
-              position: "absolute", inset: 0, width: "35%", pointerEvents: "none",
-              background: "linear-gradient(105deg, transparent, rgba(255,255,255,0.2), transparent)",
-              transform: "skewX(-12deg)",
-            }}
-          />
-        </div>
-
-        {/* Content */}
-        <div style={{
-          padding: "20px 24px 26px",
-          display: "flex", flexDirection: "column", flex: 1, gap: 10,
-        }}>
-
-          {/* Title */}
-          <motion.h3
-            animate={{ y: hovered ? -2 : 0 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              fontFamily: "'Playfair Display', Georgia, serif",
-              fontSize: 24, fontWeight: 700,
-              color: B.text,
-              lineHeight: 1.2, margin: 0, padding: 0,
-            }}
-          >
-            {service.title}
-          </motion.h3>
-
-          {/* Gold accent line */}
-          <motion.div
-            animate={{ scaleX: hovered ? 1 : 0.2, opacity: hovered ? 1 : 0.4 }}
-            transition={{ duration: 0.4 }}
-            style={{
-              height: 1.5,
-              background: `linear-gradient(90deg, ${B.gold}, transparent)`,
-              transformOrigin: "left", borderRadius: 1,
-            }}
-          />
-
-          {/* Description */}
-          <p style={{
-            color: B.textMid,
-            fontSize: 14, lineHeight: 1.75,
-            fontWeight: 400, letterSpacing: "0.01em",
-            margin: 0, flex: 1,
-          }}>
-            {service.description}
-          </p>
-
-          {/* CTA */}
-          <Link href="#" style={{
-            textDecoration: "none", display: "inline-flex",
-            alignItems: "center", gap: 8, marginTop: 6,
-          }}>
-            <motion.span
-              animate={{ width: hovered ? 32 : 14 }}
-              transition={{ duration: 0.35 }}
-              style={{ height: 1.5, background: B.gold, display: "block", flexShrink: 0 }}
-            />
-            <span style={{
-              fontFamily: "monospace", fontSize: 10, fontWeight: 700,
-              color: B.gold, letterSpacing: "0.18em", textTransform: "uppercase",
-            }}>
-              DISCOVER MORE
-            </span>
-            <motion.span
-              animate={{ x: hovered ? 4 : 0, opacity: hovered ? 1 : 0.5 }}
-              transition={{ duration: 0.25 }}
-              style={{ color: B.gold, fontSize: 13 }}
-            >
-              →
-            </motion.span>
-          </Link>
-        </div>
+    <section className="relative py-20 md:py-32 bg-[#FAF8F5] overflow-hidden">
+      {/* Elegant background elements */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, #1a1a1a 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
       </div>
 
-      {/* Particles */}
-      {particles.map((p) => <Particle key={p.id} x={p.x} y={p.y} />)}
-    </motion.div>
-  );
-};
-
-/* ─────────────────────────────────────────
-   Scrolling Marquee
-───────────────────────────────────────── */
-const Marquee: FC = () => {
-  const words: string[] = [
-    "Construction", "Interior Design", "Architecture",
-    "Excellence", "Precision", "Craftsmanship",
-  ];
-  return (
-    <div style={{
-      overflow: "hidden",
-      borderTop: `1px solid ${B.creamBorder}`,
-      borderBottom: `1px solid ${B.creamBorder}`,
-      padding: "10px 0", margin: "44px 0",
-    }}>
+      {/* Floating accent shapes */}
       <motion.div
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 26, ease: "linear", repeat: Infinity }}
-        style={{ display: "flex", gap: 48, whiteSpace: "nowrap" }}
-      >
-        {[...words, ...words].map((w, i) => (
-          <span key={i} style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: 38, fontWeight: 700,
-            textTransform: "uppercase", letterSpacing: "0.08em",
-            color: "transparent",
-            WebkitTextStroke: `1px rgba(196,151,58,0.22)`,
-            userSelect: "none",
-          }}>
-            {w}&nbsp;
-            <span style={{ color: `rgba(196,151,58,0.28)`, WebkitTextStroke: "none" }}>✦</span>
-          </span>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
+        className="absolute top-20 right-10 w-32 h-32 border border-[#C4A574]/20"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute bottom-40 left-10 w-24 h-24 border border-[#C4A574]/20"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      />
 
-/* ─────────────────────────────────────────
-   Decorative Corner Bracket
-───────────────────────────────────────── */
-interface CornerProps {
-  style?: React.CSSProperties;
-  flip?: boolean;
-  flipY?: boolean;
-}
-const Corner: FC<CornerProps> = ({ style, flip, flipY }) => (
-  <div style={{
-    position: "absolute", width: 24, height: 24, opacity: 0.35,
-    transform: `scale(${flip ? -1 : 1}, ${flipY ? -1 : 1})`,
-    ...style,
-  }}>
-    <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: 1.5, background: B.gold }} />
-    <div style={{ position: "absolute", top: 0, left: 0, height: "100%", width: 1.5, background: B.gold }} />
-  </div>
-);
-
-/* ─────────────────────────────────────────
-   Main Section
-───────────────────────────────────────── */
-export default function WhatWeOfferStylish() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-
-  return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&display=swap');
-
-        @keyframes ns-grain {
-          0%,100% { transform: translate(0,0); }
-          25%     { transform: translate(-1%,-2%); }
-          50%     { transform: translate(1.5%,-0.5%); }
-          75%     { transform: translate(-0.5%,1.5%); }
-        }
-        .ns-services-section::before {
-          content: '';
-          position: absolute; inset: -200%;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-          background-size: 180px 180px;
-          animation: ns-grain 1.2s steps(1) infinite;
-          pointer-events: none; z-index: 0; opacity: 0.4;
-        }
-      `}</style>
-
-      <section
-        ref={sectionRef}
-        className="ns-services-section"
-        style={{
-          position: "relative",
-          background: B.cream,
-          overflow: "hidden",
-          padding: "96px 24px 112px",
-        }}
-      >
-        {/* Subtle warm grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
         <motion.div
-          style={{
-            y: bgY, position: "absolute", inset: 0,
-            pointerEvents: "none", zIndex: 0,
-            backgroundImage:
-              `linear-gradient(rgba(196,151,58,0.05) 1px, transparent 1px),` +
-              `linear-gradient(90deg, rgba(196,151,58,0.05) 1px, transparent 1px)`,
-            backgroundSize: "72px 72px",
-          }}
-        />
-
-        {/* Soft warm glow top-center */}
-        <div style={{
-          position: "absolute", top: -60, left: "50%", transform: "translateX(-50%)",
-          width: 800, height: 400, pointerEvents: "none", zIndex: 0,
-          background: `radial-gradient(ellipse, rgba(196,151,58,0.08) 0%, transparent 65%)`,
-          filter: "blur(60px)",
-        }} />
-
-        {/* Corner brackets */}
-        <Corner style={{ top: 20, left: 20 }} />
-        <Corner style={{ top: 20, right: 20 }} flip />
-        <Corner style={{ bottom: 20, left: 20 }} flipY />
-        <Corner style={{ bottom: 20, right: 20 }} flip flipY />
-
-        {/* Content */}
-        <div style={{ position: "relative", zIndex: 10, maxWidth: 1200, margin: "0 auto" }}>
-
-          {/* ── Header ── */}
-          <div style={{ textAlign: "center" }}>
-
-            {/* Label row */}
-            <motion.div
-              initial={{ opacity: 0, y: -14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55 }}
-              style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 24 }}
-            >
-              <span style={{ height: 1, width: 44, background: B.gold, display: "block", opacity: 0.7 }} />
-              <span style={{
-                fontFamily: "monospace", fontSize: 10.5,
-                color: B.gold, letterSpacing: "0.28em", textTransform: "uppercase",
-              }}>
-                Our Premium Services
-              </span>
-              <span style={{ height: 1, width: 44, background: B.gold, display: "block", opacity: 0.7 }} />
-            </motion.div>
-
-            {/* Main heading */}
-            <motion.h2
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.08 }}
-              style={{
-                fontFamily: "'Playfair Display', Georgia, serif",
-                fontSize: "clamp(40px, 6.5vw, 80px)",
-                fontWeight: 700, lineHeight: 1.05,
-                color: B.text, margin: 0,
-              }}
-            >
-              Why Naval{" "}
-              <span style={{ position: "relative", display: "inline-block", color: B.text }}>
-                Design
-                <motion.span
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.65, delay: 0.6 }}
-                  style={{
-                    position: "absolute", bottom: 2, left: 0,
-                    width: "100%", height: 3,
-                    background: `linear-gradient(90deg, ${B.gold}, transparent)`,
-                    transformOrigin: "left", display: "block", borderRadius: 2,
-                  }}
-                />
-              </span>
-              <br />
-              {/* "Process" in gold — italic to match your Playfair style */}
-              <span style={{
-                fontStyle: "italic",
-                background: `linear-gradient(120deg, ${B.gold} 0%, ${B.goldLight} 50%, #A07828 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                display: "inline-block",
-              }}>
-                Process
-              </span>
-            </motion.h2>
-
-            {/* Sub paragraph */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.65, delay: 0.2 }}
-              style={{
-                marginTop: 20, color: B.textMid,
-                maxWidth: 520, marginLeft: "auto", marginRight: "auto",
-                fontSize: 15, lineHeight: 1.8,
-                fontWeight: 400, letterSpacing: "0.015em",
-              }}
-            >
-              We offer personalized, design-driven solutions that blend aesthetics,
-              functionality and precision, ensuring every space is crafted with care and
-              delivered with excellence.
-            </motion.p>
-          </div>
-
-          {/* Marquee */}
-          <Marquee />
-
-          {/* Cards */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
-            gap: 24,
-          }}>
-            {services.map((s, i) => (
-              <ServiceCard key={s.number} service={s} index={i} />
-            ))}
-          </div>
-
-          {/* CTA Button — matching your "Know More" style */}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16 md:mb-24"
+        >
           <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: 0.15 }}
-            style={{ display: "flex", justifyContent: "center", marginTop: 60 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="inline-flex items-center gap-3 mb-6"
           >
-            <Link href="#" style={{ textDecoration: "none" }}>
-              <motion.div
-                whileHover="hov"
-                style={{
-                  position: "relative", overflow: "hidden",
-                  border: `1.5px solid ${B.gold}`,
-                  padding: "14px 48px", cursor: "pointer",
-                  borderRadius: 4,
-                }}
-              >
-                {/* Fill sweep */}
-                <motion.div
-                  variants={{ hov: { scaleX: 1 } }}
-                  initial={{ scaleX: 0 }}
-                  transition={{ duration: 0.35 }}
-                  style={{
-                    position: "absolute", inset: 0,
-                    background: B.gold,
-                    transformOrigin: "left", zIndex: 0,
-                  }}
-                />
-                <motion.span
-                  variants={{ hov: { color: B.white } }}
-                  style={{
-                    position: "relative", zIndex: 1,
-                    fontFamily: "monospace", fontSize: 11,
-                    letterSpacing: "0.22em", textTransform: "uppercase",
-                    color: B.gold, display: "block",
-                  }}
-                >
-                  VIEW ALL SERVICES
-                </motion.span>
-              </motion.div>
-            </Link>
+            <div className="w-2 h-2 rounded-full bg-[#C4A574]" />
+            <p className="text-[#C4A574] font-semibold text-xs md:text-sm tracking-[0.3em] uppercase">
+              Our Premium Services
+            </p>
+            <div className="w-2 h-2 rounded-full bg-[#C4A574]" />
           </motion.div>
 
-          {/* Warm gold divider */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            whileInView={{ scaleX: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.3 }}
-            style={{
-              marginTop: 72, height: 1,
-              background: `linear-gradient(90deg, transparent, ${B.gold}80, transparent)`,
-              transformOrigin: "center",
-            }}
-          />
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-[#1a1a1a] mb-6 leading-tight">
+            Why Naval Design{" "}
+            <span className="text-[#C4A574]">Process</span>
+          </h2>
+
+          <p className="text-[#1a1a1a]/60 text-lg md:text-xl font-body leading-relaxed max-w-3xl mx-auto">
+            We offer personalized, design-driven solutions that blend aesthetics, functionality and precision,
+            ensuring every space is crafted with care and delivered with excellence.
+          </p>
+        </motion.div>
+
+        {/* Services Grid - Equal Height Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.15,
+                ease: [0.21, 0.47, 0.32, 0.98],
+              }}
+              onHoverStart={() => setHoveredIndex(index)}
+              onHoverEnd={() => setHoveredIndex(null)}
+              className="group flex"
+            >
+              <div className="relative w-full flex flex-col bg-white overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border-2 border-[#C4A574]/10 hover:border-[#C4A574]/40">
+                
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-20 h-20 overflow-hidden">
+                  <div className="absolute top-0 right-0 w-0 h-0 border-t-[80px] border-r-[80px] border-t-transparent border-r-[#C4A574]/10 group-hover:border-r-[#C4A574]/30 transition-all duration-500" />
+                </div>
+
+                {/* Number Badge - Rounded */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: index * 0.15 + 0.3, type: "spring" }}
+                  className="absolute top-6 left-6 z-20 w-12 h-12 bg-[#C4A574] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
+                >
+                  <span className="text-white font-bold text-lg">{service.number}</span>
+                </motion.div>
+
+                {/* Image container with overlay */}
+                <div className="relative h-48 overflow-hidden">
+                  <motion.div
+                    animate={{
+                      scale: hoveredIndex === index ? 1.1 : 1,
+                    }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </motion.div>
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/70 via-[#1a1a1a]/20 to-transparent" />
+                  
+                  {/* Animated shine effect on hover */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: hoveredIndex === index ? "100%" : "-100%" }}
+                    transition={{ duration: 0.8 }}
+                  />
+                </div>
+
+                {/* Content - Flex grow to push button to bottom */}
+                <div className="p-6 md:p-8 flex flex-col flex-grow">
+                  {/* Title */}
+                  <h3 className="text-xl md:text-2xl font-heading font-bold text-[#1a1a1a] mb-3 group-hover:text-[#C4A574] transition-colors duration-300">
+                    {service.title}
+                  </h3>
+
+                  {/* Decorative line with animation */}
+                  <motion.div
+                    className="h-0.5 bg-gradient-to-r from-[#C4A574] to-[#C4A574]/40 mb-4"
+                    initial={{ width: "2rem" }}
+                    whileInView={{ width: "3rem" }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.6, delay: index * 0.15 + 0.4 }}
+                  />
+
+                  {/* Description - Fixed height for alignment */}
+                  <p className="text-[#1a1a1a]/70 leading-relaxed text-sm font-body mb-6 flex-grow">
+                    {service.description}
+                  </p>
+
+                  {/* CTA Link - Aligned at bottom */}
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center text-[#1a1a1a] font-semibold text-sm tracking-wider group/link relative mt-auto w-fit"
+                  >
+                    <span className="relative z-10">DISCOVER MORE</span>
+                    <motion.svg
+                      className="w-5 h-5 ml-2 relative z-10"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      animate={{
+                        x: hoveredIndex === index ? 5 : 0,
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2.5}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </motion.svg>
+                    <motion.div
+                      className="absolute bottom-0 left-0 h-0.5 bg-[#C4A574]"
+                      initial={{ width: 0 }}
+                      animate={{ width: hoveredIndex === index ? "calc(100% - 1.75rem)" : 0 }}
+                      transition={{ duration: 0.4 }}
+                    />
+                  </Link>
+                </div>
+
+                {/* Hover border glow effect */}
+                <motion.div
+                  className="absolute inset-0 border-2 border-[#C4A574] opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500"
+                  style={{
+                    boxShadow: "inset 0 0 20px rgba(196, 165, 116, 0.2)"
+                  }}
+                />
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
-    </>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="text-center mt-16"
+        >
+          <Link
+            href="/services"
+            className="inline-flex items-center px-10 py-4 bg-[#C4A574] text-white font-semibold tracking-wider hover:bg-[#B39564] transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 text-sm group/cta relative overflow-hidden"
+          >
+            <span className="relative z-10">VIEW ALL SERVICES</span>
+            <svg
+              className="w-5 h-5 ml-3 relative z-10 group-hover/cta:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+            {/* Button shine effect */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              initial={{ x: "-100%" }}
+              whileHover={{ x: "100%" }}
+              transition={{ duration: 0.6 }}
+            />
+          </Link>
+        </motion.div>
+
+        {/* Golden Thread Line Divider */}
+        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#C4A574] to-transparent mt-16 md:mt-20" />
+      </div>
+    </section>
   );
 }
